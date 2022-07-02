@@ -5,6 +5,8 @@ from flask_cors import CORS
 import traceback
 from forms import NewLocationForm
 from models import setup_db, SampleLocation, db_drop_and_create_all
+# test comment
+
 
 def create_app(test_config=None):
     # create and configure the app
