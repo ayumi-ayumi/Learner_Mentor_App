@@ -31,6 +31,13 @@ If you are running on a Mac or some different setup, some stuff might be slightl
 - Might be needed: A local installation of [Postgres](https://www.postgresql.org/download/): The instructions given here will allow you to connect to the DB hosted in Heroku, even when you are running locally. Regardless, there are a few steps that may not work if you have no local Postgres installed. These are: 
   - the install of dependency `psycopg2` (you can workaround this one by installing `psycopg2-binary` instead)
   - Connecting to the Heroku db by using `heroku pg:psql`. To ensure this step will work fine, try executing the command `psql` from your command line. If the command is found, even when you see some error in connection to server or similar, you are OK. Only if the command is not found / recognized, then you might need to install Postgres / add this to your PATH. 
+  Heroku Postgres​ は、Heroku が直接提供するマネージド SQL データベースサービスです
+
+(自分用メモ)
+ターミナル上でherokuのアドオン確認
+```
+heroku addons
+```
 
 ## Initializing the Project
 
@@ -202,7 +209,7 @@ https://mduhagon-web-201-heroku-flask.herokuapp.com/ | https://git.heroku.com/md
 Now, we want to add a PostGres database to our app (hobby-dev is the free version):
 
 **Mac / Linux / Windows**
-(might need to add sudo for Mac/Linux)
+(might need to add sudo for Mac/Linux) hobby-dev is a free version/ Heroku内のアドオンでpostgreSQLを追加
 ```
 heroku addons:create heroku-postgresql:hobby-dev
 ```
@@ -222,7 +229,7 @@ As the last step in setting up our database, we want to install PostGis, the ext
 To be able to do this we need our database name, in my example that is 'postgresql-parallel-63698' (notice that is mentioned on the output when we created the db, otherwise you can see the db name from the Heroku web console)
 
 **Mac / Linux / Windows**
-(might need to add sudo for Mac/Linux)
+(might need to add sudo for Mac/Linux) PostgreSQLの拡張ライブラリーPostGisを追加
 ```
 heroku pg:psql postgresql-parallel-63698  <<< replace with your db name
 ```
