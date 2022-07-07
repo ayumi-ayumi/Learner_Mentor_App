@@ -7,6 +7,7 @@ from forms import NewLocationForm
 from models import setup_db, SampleLocation, db_drop_and_create_all
 
 
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
