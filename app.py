@@ -19,6 +19,7 @@ def create_app(test_config=None):
 
     """ uncomment at the first time running the app. Then comment back so you do not erase db content over and over """
     db_drop_and_create_all()
+    
 
     @app.route('/', methods=['GET'])
     def home():
