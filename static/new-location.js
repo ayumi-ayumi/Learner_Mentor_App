@@ -71,7 +71,7 @@ function placeMarker(latLng) {
     // Because we created a draggable marker,
     // we need to define what happens after the user drags / repositions
     // the marker
-    google.maps.event.addListener(newMarker, 'dragend', function (evt) {
+    google.maps.evexnt.addListener(newMarker, 'dragend', function (evt) {
         // If the user drags the marker,
         // the Form coordinates need to be updated
         updateFormCoordinates(evt.latLng.lat().toFixed(6), evt.latLng.lng().toFixed(6));

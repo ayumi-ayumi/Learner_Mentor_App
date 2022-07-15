@@ -68,11 +68,11 @@ def insert_sample_locations():
 
 class SpatialConstants:
     SRID = 4326
-class SampleLocation(db.Model):
-    __tablename__ = 'sample_locations'
+class SampleLocation(db.Model): #first defined model class to store sample locations in the DB
+    __tablename__ = 'sample_locations' #table is created and data is stored in a table   
 
-    id = Column(Integer, primary_key=True)
-    description = Column(String(80))
+    id = Column(Integer, primary_key=True) #column in a table, primary key is an attribute that identifies the row of the respective table
+    description = Column(String(80)) #second column
     geom = Column(Geometry(geometry_type='POINT', srid=SpatialConstants.SRID))  
 
     @staticmethod

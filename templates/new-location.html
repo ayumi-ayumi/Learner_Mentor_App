@@ -3,6 +3,7 @@
     <script src="{{ url_for('static', filename='new-location.js') }}"></script>
 {% endblock %}
 {% block body %}
+    <button><a href="{{ url_for('home') }}">Back to main</a></button>
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
