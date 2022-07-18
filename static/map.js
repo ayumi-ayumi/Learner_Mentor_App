@@ -134,6 +134,7 @@ var radiusToZoomLevel = [
   120,  // zoom: 19
 ];
 
+// ページをリフレッシュした時
 function refreshMarkers(mapCenter, zoomLevel) {
   console.log("refreshing markers")
   //Update query cener and zoom so we know in referenec to what
@@ -209,6 +210,7 @@ function clearMarkers() {
   selectedMarker = null;
 }
 
+// サーチボックスに地名等を入れた時。不明瞭な地名だとelseをかえす
 function searchAddressSubmit() {
   console.log('searchAddressSubmit');
 
@@ -234,7 +236,7 @@ function markerClick(marker) {
   console.log('Marker clicked');
   console.log(marker);
 
-  // de-select the previously active marker, if present
+  // de-select the previously active marker, if present, マーカーがクリックされたら星マークアイコンになるようにする
   if (selectedMarker) selectedMarker.setIcon(DEFAULT_ICON);
   marker.setIcon(SELECTED_ICON);
 
