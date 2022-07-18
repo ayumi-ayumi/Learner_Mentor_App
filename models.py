@@ -45,7 +45,7 @@ def insert_sample_locations():
             latitude=52.516247, 
             longitude=13.377711
         ),
-        learner_or_mentor = 'Learner'
+        learner_or_mentor='Learner'
     )
     loc1.insert()
 
@@ -55,7 +55,7 @@ def insert_sample_locations():
             latitude=52.520608, 
             longitude=13.295581
         ),
-        learner_or_mentor = 'Mentor'
+        learner_or_mentor='Learner'
     )
     loc2.insert()
 
@@ -65,10 +65,19 @@ def insert_sample_locations():
             latitude=52.473580, 
             longitude=13.405252
         ),
-        learner_or_mentor = 'Mentor'
+        learner_or_mentor='Learner'
     )
     loc3.insert()
 
+    # loc4 = SampleLocation(
+    #     description='Alexanderplatz',
+    #     geom=SampleLocation.point_representation(
+    #         latitude=52.5220, 
+    #         longitude=13.4133
+    #     ),
+    #     learner_or_mentor='Learner'
+    # )
+    # loc4.insert()
 
 # クラスの定義とデータベースの作成。ここで作成したクラスの構成がそのままデータベースにテーブルとして反映されます。
 class SpatialConstants:
@@ -79,7 +88,7 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
     id = Column(Integer, primary_key=True) #column in a table, primary key is an attribute that identifies the row of the respective table
     description = Column(String(80)) #second column
     geom = Column(Geometry(geometry_type='POINT', srid=SpatialConstants.SRID))  
-    learner_or_mentor = Column(String)
+    learner_or_mentor = Column(String(10))
 
     @staticmethod
     def point_representation(latitude, longitude):

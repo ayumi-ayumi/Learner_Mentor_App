@@ -19,6 +19,22 @@ var SELECTED_ICON = {
   url: "http://maps.google.com/mapfiles/kml/paddle/grn-stars.png"
 }
 
+// var Mentor_DEFAULT_ICON = {
+//   url: "hhttp://maps.google.com/mapfiles/kml/paddle/pink-blank.png"
+// }
+
+// var Mentor_SELECTED_ICON = {
+//   url: "http://maps.google.com/mapfiles/kml/paddle/pink-stars.png"
+// }
+
+// var Learner_DEFAULT_ICON = {
+//   url: "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png"
+// }
+
+// var Learner_SELECTED_ICON = {
+//   url: "http://maps.google.com/mapfiles/kml/paddle/grn-stars.png"
+// }
+
 function initMap() {
   console.log('InitMap')
   

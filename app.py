@@ -46,6 +46,7 @@ def create_app(test_config=None):
             longitude = float(form.coord_longitude.data)
             description = form.description.data
             learner_or_mentor = form.learner_or_mentor.data
+            
 
             location = SampleLocation(
                 description=description,
@@ -54,8 +55,10 @@ def create_app(test_config=None):
             )   
             location.insert()
 
+
             flash(f'New location created!', 'success')
             return redirect(url_for('home'))
+    
 
         return render_template(
             'new-location.html',
