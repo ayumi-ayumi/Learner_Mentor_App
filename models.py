@@ -66,6 +66,8 @@ def insert_sample_locations():
     )
     loc3.insert()
 
+
+# クラスの定義とデータベースの作成。ここで作成したクラスの構成がそのままデータベースにテーブルとして反映されます。
 class SpatialConstants:
     SRID = 4326
 class SampleLocation(db.Model): #first defined model class to store sample locations in the DB
