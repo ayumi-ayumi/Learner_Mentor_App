@@ -44,7 +44,8 @@ def insert_sample_locations():
         geom=SampleLocation.point_representation(
             latitude=52.516247, 
             longitude=13.377711
-        )
+        ),
+        learner_or_mentor = 'Learner'
     )
     loc1.insert()
 
@@ -53,7 +54,8 @@ def insert_sample_locations():
         geom=SampleLocation.point_representation(
             latitude=52.520608, 
             longitude=13.295581
-        )
+        ),
+        learner_or_mentor = 'Mentor'
     )
     loc2.insert()
 
@@ -62,7 +64,8 @@ def insert_sample_locations():
         geom=SampleLocation.point_representation(
             latitude=52.473580, 
             longitude=13.405252
-        )
+        ),
+        learner_or_mentor = 'Mentor'
     )
     loc3.insert()
 
@@ -76,6 +79,7 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
     id = Column(Integer, primary_key=True) #column in a table, primary key is an attribute that identifies the row of the respective table
     description = Column(String(80)) #second column
     geom = Column(Geometry(geometry_type='POINT', srid=SpatialConstants.SRID))  
+    learner_or_mentor = Column(String)
 
     @staticmethod
     def point_representation(latitude, longitude):
@@ -114,7 +118,8 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
             'location': {
                 'lng': self.get_location_longitude(),
                 'lat': self.get_location_latitude()
-            }
+            },
+            'learner_or_mentor' : self.learner_or_mentor
         }    
 
     def insert(self):

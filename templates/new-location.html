@@ -17,6 +17,7 @@
             {% endif %}
 
             <div class="form-group">
+                <!-- form はforms.pyのNewLocationFormクラスを指している。app.py でformとしてインスタンス化されている。 -->
                 {{ form.description.label(class="form-control-label") }}
                 {% if form.description.errors %}
                     {{ form.description(class="form-control form-control-lg is-invalid") }}
@@ -43,7 +44,23 @@
                     {{ form.lookup_address(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
-           
+            
+            <!-- Radio button for Learner or Mentor -->
+            <div class="form-group">
+                {{ form.learner_or_mentor.label(class="form-control-label") }}
+
+                {% if form.learner_or_mentor.errors %}
+                    {{ form.learner_or_mentor(class="form-check is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.learner_or_mentor.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.learner_or_mentor(class="form-check",style="list-style-type:none") }}
+                {% endif %}
+            </div>
+
         </fieldset>
         <div id="preview" style="width: 100%; height: 400px">
             <div id="map" style="height: 100%;"></div>

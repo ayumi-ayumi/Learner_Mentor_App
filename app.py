@@ -45,10 +45,12 @@ def create_app(test_config=None):
             latitude = float(form.coord_latitude.data)
             longitude = float(form.coord_longitude.data)
             description = form.description.data
+            learner_or_mentor = form.learner_or_mentor.data
 
             location = SampleLocation(
                 description=description,
-                geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude)
+                geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude),
+                learner_or_mentor=learner_or_mentor
             )   
             location.insert()
 
@@ -67,10 +69,12 @@ def create_app(test_config=None):
             latitude = float(request.args.get('lat'))
             longitude = float(request.args.get('lng'))
             description = request.args.get('description')
+            learner_or_mentor = request.args.get('learner_or_mentor')
 
             location = SampleLocation(
                 description=description,
-                geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude)
+                geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude),
+                learner_or_mentor=learner_or_mentor
             )   
             location.insert()
 
@@ -116,5 +120,5 @@ def create_app(test_config=None):
 
 app = create_app()
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT",5000))
+    port = int(os.environ.get("PORT",8000))
     app.run(host='127.0.0.1',port=port,debug=True)
