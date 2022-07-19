@@ -19,21 +19,21 @@ var SELECTED_ICON = {
   url: "http://maps.google.com/mapfiles/kml/paddle/grn-stars.png"
 }
 
-// var Mentor_DEFAULT_ICON = {
-//   url: "hhttp://maps.google.com/mapfiles/kml/paddle/pink-blank.png"
-// }
+var Mentor_DEFAULT_ICON = {
+  url: "http://maps.google.com/mapfiles/kml/paddle/pink-blank.png"
+}
 
-// var Mentor_SELECTED_ICON = {
-//   url: "http://maps.google.com/mapfiles/kml/paddle/pink-stars.png"
-// }
+var Mentor_SELECTED_ICON = {
+  url: "http://maps.google.com/mapfiles/kml/paddle/pink-stars.png"
+}
 
-// var Learner_DEFAULT_ICON = {
-//   url: "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png"
-// }
+var Learner_DEFAULT_ICON = {
+  url: "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png"
+}
 
-// var Learner_SELECTED_ICON = {
-//   url: "http://maps.google.com/mapfiles/kml/paddle/grn-stars.png"
-// }
+var Learner_SELECTED_ICON = {
+  url: "http://maps.google.com/mapfiles/kml/paddle/grn-stars.png"
+}
 
 function initMap() {
   console.log('InitMap')
@@ -175,19 +175,18 @@ function refreshMarkers(mapCenter, zoomLevel) {
     // Parse JSON string into object
       var response_JSON = JSON.parse(response);
       console.log(response_JSON);
-
       if (!response_JSON.success) {
-          // something failed in the backed serching for the items
-          console.log("/api/get_items_in_radius call FAILED!")
-          return
+        // something failed in the backed serching for the items
+        console.log("/api/get_items_in_radius call FAILED!")
+        return
       }  
-
+      
       // place new markers in the map
       placeItemsInMap(response_JSON.results)
-   });
-}
-
-function placeItemsInMap(items) {
+    });
+  }
+  
+  function placeItemsInMap(items) {
     // Add some markers to the map.
     // Note: The code uses the JavaScript Array.prototype.map() method to
     // create an array of markers based on the given "items" array.
@@ -197,16 +196,28 @@ function placeItemsInMap(items) {
         map: map,
         position: item.location
       });
-      marker.setIcon(DEFAULT_ICON);
+      
+      if (item.learner_or_mentor === "Learner") {
+        marker.setIcon(Learner_DEFAULT_ICON)
+        // console.log('Learner')
+      } else {
+        marker.setIcon(Mentor_DEFAULT_ICON)
+        // console.log('Mentor')
+        }
+        // marker.setIcon(Mentor_DEFAULT_ICON)
 
       //we attach the item to the marker, so when the marker is selected
       //we can get all the item data to fill the highlighted profile box under
       // the map 
       marker.profile = item;
-
+      // console.log(marker.profile)
+      
+      // console.log(item.learner_or_mentor)
       google.maps.event.addListener(marker, 'click', function(evt) {
         markerClick(this);
       });
+      
+
 
       return marker;
     });
@@ -249,19 +260,56 @@ function searchAddressSubmit() {
 }
 
 function markerClick(marker) {
+
   console.log('Marker clicked');
   console.log(marker);
 
   // de-select the previously active marker, if present, マーカーがクリックされたら星マークアイコンになるようにする
-  if (selectedMarker) selectedMarker.setIcon(DEFAULT_ICON);
-  marker.setIcon(SELECTED_ICON);
+  // if (selectedMarker) {
+  //   console.log(selectedMarker.learner_or_mentor)
+  //   if (selectedMarker.learner_or_mentor === "Learner") {
+  //     selectedMarker.setIcon(Learner_DEFAULT_ICON)
+  //   } else {
+  //     selectedMarker.setIcon(Mentor_DEFAULT_ICON)
+  //   }
+  // } else {
+  //   if (item.learner_or_mentor === "Learner") {
+  //     selectedMarker.setIcon(Learner_SELECTED_ICON)
+  //   } else {
+  //     selectedMarker.setIcon(Mentor_SELECTED_ICON)
+  //   }
+  // }
+  
+  let learner_or_mentor = marker.profile.learner_or_mentor
+  if (!selectedMarker) {
+    
+    if(learner_or_mentor==='Learner'){
+      marker.setIcon(Learner_SELECTED_ICON)
+    } else {
+      marker.setIcon(Mentor_SELECTED_ICON)
+    }
+    
+  } 
+  
+  if(learner_or_mentor==='Learner'){
+    selectedMarker.setIcon(Learner_DEFAULT_ICON);
+  } else {
+    selectedMarker.setIcon(Mentor_DEFAULT_ICON);
+  }
+  
+  // selecetedMarker=nullなのでfalse
+  // if (selectedMarker) {
+    
+  //   selectedMarker.setIcon(DEFAULT_ICON);
+  // }
+  // marker.setIcon(SELECTED_ICON);
 
   // remove the popup for the previously selected marker
   if (selectedMarkerPopup) {
     selectedMarkerPopup.setMap(null);
   }
   
-  // update selected marker reference
+  // update selected marker reference。クリックしたアイコンの前のアイコンにmakerを設定
   selectedMarker = marker;
 
   // Show popup for the clicked marker

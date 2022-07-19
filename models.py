@@ -69,15 +69,15 @@ def insert_sample_locations():
     )
     loc3.insert()
 
-    # loc4 = SampleLocation(
-    #     description='Alexanderplatz',
-    #     geom=SampleLocation.point_representation(
-    #         latitude=52.5220, 
-    #         longitude=13.4133
-    #     ),
-    #     learner_or_mentor='Learner'
-    # )
-    # loc4.insert()
+    loc4 = SampleLocation(
+        description='Alexanderplatz',
+        geom=SampleLocation.point_representation(
+            latitude=52.5220, 
+            longitude=13.4133
+        ),
+        learner_or_mentor='Learner'
+    )
+    loc4.insert()
 
 # クラスの定義とデータベースの作成。ここで作成したクラスの構成がそのままデータベースにテーブルとして反映されます。
 class SpatialConstants:

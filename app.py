@@ -84,7 +84,7 @@ def create_app(test_config=None):
             return jsonify(
                 {
                     "success": True,
-                    "location": location.to_dict()
+                    # "location": location.to_dict()
                 }
             ), 200
         except:
