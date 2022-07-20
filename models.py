@@ -55,7 +55,7 @@ def insert_sample_locations():
             latitude=52.520608, 
             longitude=13.295581
         ),
-        learner_or_mentor='Learner'
+        learner_or_mentor='Mentor'
     )
     loc2.insert()
 
@@ -75,7 +75,7 @@ def insert_sample_locations():
             latitude=52.5220, 
             longitude=13.4133
         ),
-        learner_or_mentor='Learner'
+        learner_or_mentor='Mentor'
     )
     loc4.insert()
 
