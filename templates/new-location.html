@@ -16,8 +16,8 @@
             </div>
             {% endif %}
 
+            <!-- form はforms.pyのNewLocationFormクラスを指している。app.py でformとしてインスタンス化されている。 -->
             <div class="form-group">
-                <!-- form はforms.pyのNewLocationFormクラスを指している。app.py でformとしてインスタンス化されている。 -->
                 {{ form.description.label(class="form-control-label") }}
                 {% if form.description.errors %}
                     {{ form.description(class="form-control form-control-lg is-invalid") }}
@@ -60,7 +60,53 @@
                     {{ form.learner_or_mentor(class="form-check",style="list-style-type:none") }}
                 {% endif %}
             </div>
+            
+            <!-- Usename form -->
+            <div class="form-group">
+                {{ form.username.label(class="form-control-label") }}
 
+                {% if form.username.errors %}
+                    {{ form.username(class="form-check is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.username(class="form-username") }}
+                {% endif %}
+            </div>
+            
+            <!-- language form dropdown -->
+            <div class="form-group">
+                {{ form.language.label(class="form-control-label") }}
+
+                {% if form.language.errors %}
+                    {{ form.language(class="form-check is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.language.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.language(class="form-language") }}
+                {% endif %}
+            </div>
+            <!-- language form dropdown -->
+            <div class="form-group">
+                {{ form.language_speak.label(class="form-control-label") }}
+
+                {% if form.language_speak.errors %}
+                    {{ form.language_speak(class="form-check is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.language_speak.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.language_speak(class="form-language_speak") }}
+                {% endif %}
+            </div>
         </fieldset>
         <div id="preview" style="width: 100%; height: 400px">
             <div id="map" style="height: 100%;"></div>

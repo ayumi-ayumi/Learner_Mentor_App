@@ -46,12 +46,18 @@ def create_app(test_config=None):
             longitude = float(form.coord_longitude.data)
             description = form.description.data
             learner_or_mentor = form.learner_or_mentor.data
+            username = form.username.data
+            language = form.language.data
+            language_speak = form.language_speak.data
             
 
             location = SampleLocation(
                 description=description,
                 geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude),
-                learner_or_mentor=learner_or_mentor
+                learner_or_mentor=learner_or_mentor,
+                username=username,
+                language=language,
+                language_speak=language_speak
             )   
             location.insert()
 

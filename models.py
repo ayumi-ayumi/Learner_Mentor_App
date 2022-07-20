@@ -88,8 +88,11 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
     id = Column(Integer, primary_key=True) #column in a table, primary key is an attribute that identifies the row of the respective table
     description = Column(String(80)) #second column
     geom = Column(Geometry(geometry_type='POINT', srid=SpatialConstants.SRID))  
-    learner_or_mentor = Column(String(10))
-
+    learner_or_mentor = Column(String)
+    username = Column(String)
+    language = Column(String)
+    language_speak = Column(String)
+    
     @staticmethod
     def point_representation(latitude, longitude):
         point = 'POINT(%s %s)' % (longitude, latitude)

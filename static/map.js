@@ -260,89 +260,32 @@ function markerClick(marker) {
   console.log(marker.profile.description);
 
   // de-select the previously active marker, if present, マーカーがクリックされたら星マークアイコンになるようにする
-  
-  // selectedMarker = null
+  // selecetedMarker=nullなのでfalse
   let learner_or_mentor = marker.profile.learner_or_mentor
   if (selectedMarker) {
-    
-    console.log(selectedMarker.profile.learner_or_mentor)
-
+    // console.log(selectedMarker.profile.learner_or_mentor)
     if(selectedMarker.profile.learner_or_mentor==='Learner' ){
       console.log("Learner default")
       selectedMarker.setIcon(Learner_DEFAULT_ICON);
       // return
       console.log(selectedMarker)
     } 
-
     if(selectedMarker.profile.learner_or_mentor==='Mentor'){
       console.log("mentor default")
       selectedMarker.setIcon(Mentor_DEFAULT_ICON);
       console.log(selectedMarker)
     }
-    
   } 
-  // console.log(selectedMarker)
   
   if(learner_or_mentor==='Learner'){
     console.log("learner selected")
     marker.setIcon(Learner_SELECTED_ICON)
-    selectedMarker = marker;
-
   } 
   if (learner_or_mentor==='Mentor') {
     console.log("Mentor selected")
     marker.setIcon(Mentor_SELECTED_ICON)
-    selectedMarker = marker;
-
   }
-  
-
-  // let learner_or_mentor = marker.profile.learner_or_mentor
-  // switch(learner_or_mentor) {
-  //   case "Learner":
-  //     if(selectedMarker) {
-  //           selectedMarker.setIcon(Learner_DEFAULT_ICON)
-  //           // selectedMarker = marker;
-  //           // selectedMarker = null;
-  //         }
-  //         marker.setIcon(Learner_SELECTED_ICON)
-  //     // selectedMarker = marker;
-  //     // selectedMarker = null;
-      
-  //     break;
-  //   case "Mentor":
-  //     if(selectedMarker) {
-  //       selectedMarker.setIcon(Mentor_DEFAULT_ICON)
-  //       // selectedMarker = marker;
-  //       // selectedMarker = null;
-  //     }
-  //     marker.setIcon(Mentor_SELECTED_ICON)
-  //     // selectedMarker = marker;
-  //     // selectedMarker = null;
-  //   break;
-  // }
-  
-  // let learner_or_mentor = marker.profile.learner_or_mentor
-  // if(learner_or_mentor==='Learner') {
-
-  //     if(selectedMarker) {
-  //       selectedMarker.setIcon(Learner_DEFAULT_ICON)
-  //     } else {
-  //         // marker.setIcon(Learner_SELECTED_ICON)
-  //         marker.setIcon(Learner_SELECTED_ICON)
-  //     }
-        
-  //     } else if(learner_or_mentor==='Mentor') {
-    
-  //   if(selectedMarker) {
-  //     selectedMarker.setIcon(Mentor_DEFAULT_ICON)
-  //   } else {
-  //     // marker.setIcon(Mentor_SELECTED_ICON)
-  //     marker.setIcon(Mentor_SELECTED_ICON)
-  //   }
-  // }
-    
-  // selecetedMarker=nullなのでfalse
+   
   // if (selectedMarker) {
     // console.log(selectedMarker)
     // selectedMarker.setIcon(DEFAULT_ICON);
@@ -356,7 +299,7 @@ function markerClick(marker) {
   }
   
   // update selected marker reference。クリックしたアイコンの前のアイコンにmakerを設定
-  // selectedMarker = marker;
+  selectedMarker = marker;
 
   // Show popup for the clicked marker
   selectedMarkerPopup = new Popup(
