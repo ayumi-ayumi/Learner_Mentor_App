@@ -50,3 +50,29 @@
     /* The max width of the info window. */
     width: 200px;
   }
+
+  /* new-location.html */
+  .form-language_speak {
+    list-style-type: none;
+  }
+
+  .form-language_speak li{
+    display: inline-block;
+    margin: 0 5px;
+    font-size: 1rem;
+  }
+  
+  .form-language_learn {
+    list-style-type: none;
+  }
+  
+  .form-language_learn li{
+    display: inline-block;
+    margin: 0 5px;
+    font-size: 1rem;
+  }
+
+  /* map.html */
+  .navbar li.nav-item {
+    color: #fff;    
+  }

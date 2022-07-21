@@ -1,12 +1,12 @@
 import unicodedata
 from wsgiref.validate import validator
 from country_list import available_languages, countries_for_language
+from django.forms import BooleanField
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, HiddenField, RadioField, SelectField, SelectMultipleField, widgets, BooleanField
-from wtforms.validators import DataRequired, Length
-from pycountry import languages, pycountry
-from django import forms
+from wtforms import StringField, SubmitField, HiddenField, RadioField, SelectMultipleField, widgets, PasswordField, BooleanField
+from wtforms.validators import DataRequired, Length, Email, EqualTo
 
+""" form for language select """
 class MultiCheckboxField(SelectMultipleField):
     """
     A multiple-select, except displays a list of checkboxes.
@@ -32,40 +32,81 @@ class NewLocationForm(FlaskForm):
 
     coord_longitude = HiddenField('Longitude', validators=[DataRequired()])       
 
-    language = SelectMultipleField('Which programming Language do you learn?', validators=[DataRequired()], choices = [('cpp', 'C++'), ('py', 'Python'), ('text', 'Plain Text')])  
+    options_language_learn = ['C++', 'C#','python','Java', 'JavaScript', 'SQL', 'PHP', 'Ruby', 'Swift', 'Go', 'Kotlin', 'Scala', 'HTML&CSS']
+    options_language_learn.sort()
+    language_learn = MultiCheckboxField('Which programming Language do you learn?', choices = options_language_learn)
 
-    # LANGUAGE_CHOICES = [(language.name, language.name) for language in pycountry.languages]
-    # choices = ['apple', 'banana','cherry']
-    # language_speak = SelectField('Which programming Language do you speak?', validators=[DataRequired()], choices=choices)
-    options=['12 available options:', 'French', 'Spanish', 'English', 'Portuguese', 'Chinese', 'German','Khoisan', 'Korean', 'Swahili', 'Japanese', 'Russian', 'Arabic']
-    # options.sort()
+    options_language_speak=[ 'French', 'Spanish', 'English', 'Portuguese', 'Chinese', 'German','Khoisan', 'Korean', 'Swahili', 'Japanese', 'Russian', 'Arabic']
+    options_language_speak.sort()
+    language_speak = MultiCheckboxField('Which Language do you speak?', choices = options_language_speak)
 
-    # language_speak = SelectMultipleField('Your native and fluent language(s)', validators=[DataRequired()], choices=options)
+    how_long_experienced = RadioField('How long are you experienced?', validators=[DataRequired()], choices = ['Less than 1 year','1-2 years', '3-5 years', 'More than 5 years', 'Over 10 years'])
 
-    # class MultiCheckboxField(SelectMultipleField):
-    #     widget = widgets.ListWidget(prefix_label=False)
-    #     option_widget = widgets.CheckboxInput()
+    how_long_learning = RadioField('How long have you learned?', validators=[DataRequired()], choices = ['Never','Less than 3 monts', '3-6 months', '6-12 months', 'Over 1 year'])
+
+    online_inperson = RadioField('Want to meet on online or in person?', validators=[DataRequired()], choices = ['Online', 'In person'])
     
-    # class ExampleForm(FlaskForm):
-    # language_speak = SelectMultipleField('label',coerce=int,choices=[(1, 'one'), (2, 'two'), (3, 'three')],validators=[])
-    # widget = widgets.CheckboxInput()
-    # # print(widget)
-    # language_speak = BooleanField('title',             false_values=None,              render_kw ={'checked':''})
-    language_speak = MultiCheckboxField('Routes', choices = options, coerce=int)
-    # language_speak = forms.DecimalField(initial=300, max_value=1000)
-
-# render_kw={"placeholder": "Select language"}
     submit = SubmitField('Create Location')
 
+# Form for user registration page
+class RegistrationForm(FlaskForm):
+    fullname = StringField(
+        'Full Name', 
+        validators=
+            [DataRequired(), 
+            Length(min=2, max=200)
+        ]
+    )
 
+    username = StringField(
+        'Username / Display Name', 
+        validators=
+            [DataRequired(), 
+            Length(min=2, max=20)
+        ]
+    )
 
-    # print(list(pycountry.languages))
-    # print(list(pycountry.languages.common_name))
-    # for language in pycountry.languages:
-    #     for key in language.__dict__.keys():
-    #         if (hasattr(language, 'common_name')):     
-    #             print(language.common_name)
+    email = StringField(
+        'Email',
+        validators=[
+            DataRequired(), 
+            Email()
+        ]
+    )
 
-# for language in available_languages():
-#     print(language)            
-# print(dict(countries_for_language))
+    password = PasswordField(
+        'Password',
+        validators=[
+            DataRequired()
+        ]
+    )
+
+    confirm_password = PasswordField(
+        'Confirm Password',
+        validators=[
+            DataRequired(),
+            EqualTo('password')
+        ]
+    )
+
+    submit = SubmitField('Sign up')  
+
+# Form for user login page
+class LoginForm(FlaskForm):
+    username = StringField(
+        'Username / Display Name',
+        validators=[
+            DataRequired()
+        ]
+    )
+
+    password = PasswordField(
+        'Password',
+        validators=[
+            DataRequired()
+        ]
+    )
+
+    remember = BooleanField('Remember me')
+
+    submit = SubmitField('Login')    

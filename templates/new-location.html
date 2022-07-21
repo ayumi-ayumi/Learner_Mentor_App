@@ -61,50 +61,99 @@
                 {% endif %}
             </div>
             
-            <!-- Usename form -->
+            <!-- Username form -->
             <div class="form-group">
                 {{ form.username.label(class="form-control-label") }}
-
+                
                 {% if form.username.errors %}
-                    {{ form.username(class="form-check is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.username.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
+                {{ form.username(class="form-check is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.username.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
                 {% else %}
-                    {{ form.username(class="form-username") }}
+                {{ form.username(class="form-username") }}
                 {% endif %}
             </div>
             
-            <!-- language form dropdown -->
+            <!-- language_learn form dropdown -->
             <div class="form-group">
-                {{ form.language.label(class="form-control-label") }}
-
-                {% if form.language.errors %}
-                    {{ form.language(class="form-check is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.language.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
+                {{ form.language_learn.label(class="form-control-label") }}
+                
+                {% if form.language_learn.errors %}
+                {{ form.language_learn(class="form-check is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.language_learn.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
                 {% else %}
-                    {{ form.language(class="form-language") }}
+                {{ form.language_learn(class="form-language_learn") }}
                 {% endif %}
             </div>
-            <!-- language form dropdown -->
+            
+            <!-- language_speak form dropdown -->
             <div class="form-group">
                 {{ form.language_speak.label(class="form-control-label") }}
-
+                
                 {% if form.language_speak.errors %}
-                    {{ form.language_speak(class="form-check is-invalid") }}
+                {{ form.language_speak(class="form-check is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.language_speak.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.language_speak(class="form-language_speak") }}
+                {% endif %}
+            </div>
+            
+            <!-- Radio button for how long of experience -->
+            <div class="form-group">
+                {{ form.how_long_experienced.label(class="form-control-label") }}
+    
+                {% if form.how_long_experienced.errors %}
+                    {{ form.how_long_experienced(class="form-check is-invalid") }}
                     <div class="invalid-feedback">
-                        {% for error in form.language_speak.errors %}
+                        {% for error in form.how_long_experienced.errors %}
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ form.language_speak(class="form-language_speak") }}
+                    {{ form.how_long_experienced(class="form-check",style="list-style-type:none") }}
+                {% endif %}
+            </div>
+
+            <!-- Radio button for how long of learning-->
+            <div class="form-group">
+                {{ form.how_long_learning.label(class="form-control-label") }}
+    
+                {% if form.how_long_learning.errors %}
+                    {{ form.how_long_learning(class="form-check is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.how_long_learning.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.how_long_learning(class="form-check",style="list-style-type:none") }}
+                {% endif %}
+            </div>
+
+            <!-- Radio button for want to meet on online or in person-->
+            <div class="form-group">
+                {{ form.online_inperson.label(class="form-control-label") }}
+    
+                {% if form.online_inperson.errors %}
+                    {{ form.online_inperson(class="form-check is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.online_inperson.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.online_inperson(class="form-check",style="list-style-type:none") }}
                 {% endif %}
             </div>
         </fieldset>

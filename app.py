@@ -3,8 +3,12 @@ import sys
 from flask import Flask, request, abort, jsonify, render_template, url_for, flash, redirect
 from flask_cors import CORS
 import traceback
-from forms import NewLocationForm
-from models import setup_db, SampleLocation, db_drop_and_create_all
+from flask_login import LoginManager, login_required, login_user, logout_user, login_manager, current_user
+from forms import NewLocationForm, RegistrationForm, LoginForm
+from models import setup_db, SampleLocation, db_drop_and_create_all, User
+from sqlalchemy.exc import IntegrityError
+import hashlib
+
 
 
 
@@ -17,8 +21,12 @@ def create_app(test_config=None):
     SECRET_KEY = os.urandom(32)
     app.config['SECRET_KEY'] = SECRET_KEY
 
+    login_manager = LoginManager(app)
+    login_manager.login_view = 'login'
+    login_manager.login_message_category = 'info'
+
     """ uncomment at the first time running the app. Then comment back so you do not erase db content over and over """
-    db_drop_and_create_all()
+    # db_drop_and_create_all()
 
     @app.route('/', methods=['GET'])
     def home():
@@ -38,6 +46,7 @@ def create_app(test_config=None):
         )            
 
     @app.route("/new-location", methods=['GET', 'POST'])
+    @login_required
     def new_location():
         form = NewLocationForm()
 
@@ -47,8 +56,11 @@ def create_app(test_config=None):
             description = form.description.data
             learner_or_mentor = form.learner_or_mentor.data
             username = form.username.data
-            language = form.language.data
+            language_learn = form.language_learn.data
             language_speak = form.language_speak.data
+            how_long_experienced = form.how_long_experienced.data
+            how_long_learning = form.how_long_learning.data
+            online_inperson = form.online_inperson.data
             
 
             location = SampleLocation(
@@ -56,9 +68,13 @@ def create_app(test_config=None):
                 geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude),
                 learner_or_mentor=learner_or_mentor,
                 username=username,
-                language=language,
-                language_speak=language_speak
+                language_learn=language_learn,
+                language_speak=language_speak,
+                how_long_experienced=how_long_experienced,
+                how_long_learning=how_long_learning,
+                online_inperson=online_inperson
             )   
+            location.user_id = current_user.id
             location.insert()
 
 
@@ -79,11 +95,13 @@ def create_app(test_config=None):
             longitude = float(request.args.get('lng'))
             description = request.args.get('description')
             learner_or_mentor = request.args.get('learner_or_mentor')
+            user_id = int(request.args.get('user_id'))
 
             location = SampleLocation(
                 description=description,
                 geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude),
-                learner_or_mentor=learner_or_mentor
+                learner_or_mentor=learner_or_mentor,
+                user_id=user_id
             )   
             location.insert()
 
@@ -124,7 +142,67 @@ def create_app(test_config=None):
             "error": 500,
             "message": "server error"
         }), 500
+    
+    # register
+    @app.route("/register", methods=['GET', 'POST'])
+    def register():
+    # Sanity check: if the user is already authenticated then go back to home page
+    # if current_user.is_authenticated:
+    #     return redirect(url_for('home'))
 
+    # Otherwise process the RegistrationForm from request (if it came)
+        form = RegistrationForm()
+        if form.validate_on_submit():
+            # hash user password, create user and store it in database
+            hashed_password = hashlib.md5(form.password.data.encode()).hexdigest()
+            user = User(
+                full_name=form.fullname.data,
+                display_name=form.username.data, 
+                email=form.email.data, 
+                password=hashed_password)
+
+            try:
+                user.insert()
+                flash(f'Account created for: {form.username.data}!', 'success')
+                return redirect(url_for('home'))
+            except IntegrityError as e:
+                flash(f'Could not register! The entered username or email might be already taken', 'danger')
+                print('IntegrityError when trying to store new user')
+                # db.session.rollback()
+            
+        return render_template('registration.html', form=form)   
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.get_by_id(user_id)           
+
+    # user login
+    @app.route("/login", methods=['GET', 'POST'])
+    def login():
+        # Sanity check: if the user is already authenticated then go back to home page
+        # if current_user.is_authenticated:
+        #    return redirect(url_for('home'))
+
+        form = LoginForm()
+        if form.validate_on_submit():
+            user = User.query.filter_by(display_name=form.username.data).first()
+            hashed_input_password = hashlib.md5(form.password.data.encode()).hexdigest()
+            if user and user.password == hashed_input_password:
+                login_user(user, remember=form.remember.data)
+                next_page = request.args.get('next')
+                return redirect(next_page) if next_page else redirect(url_for('home'))
+            else:
+                flash('Login Unsuccessful. Please check user name and password', 'danger')
+        return render_template('login.html', title='Login', form=form) 
+
+    @app.route("/logout")
+    @login_required
+    def logout():
+        logout_user()
+        flash(f'You have logged out!', 'success')
+        return redirect(url_for('home'))   
+
+    # これここでだいじょうぶ？ line135の可能性あり
     return app
 
 app = create_app()

@@ -1,4 +1,6 @@
+from datetime import datetime
 import os
+from flask_login import UserMixin
 from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
 from geoalchemy2.types import Geometry
@@ -9,6 +11,7 @@ from geoalchemy2.functions import ST_DWithin
 from geoalchemy2.types import Geography
 from sqlalchemy.sql.expression import cast
 from geoalchemy2.shape import from_shape
+import hashlib
 
 db = SQLAlchemy()
 
@@ -39,6 +42,15 @@ def db_drop_and_create_all():
     insert_sample_locations()
 
 def insert_sample_locations():
+    # We need to start with an user to be able to relate initial locations to them
+    admin_user = User(
+        full_name="Administrator",
+        display_name="admin",
+        email="admin@dummy.mail",
+        password=hashlib.md5("admin".encode()).hexdigest()
+    )
+    admin_user.insert()
+    
     loc1 = SampleLocation(
         description='Brandenburger Tor',
         geom=SampleLocation.point_representation(
@@ -47,6 +59,7 @@ def insert_sample_locations():
         ),
         learner_or_mentor='Learner'
     )
+    loc1.user = admin_user
     loc1.insert()
 
     loc2 = SampleLocation(
@@ -57,6 +70,7 @@ def insert_sample_locations():
         ),
         learner_or_mentor='Mentor'
     )
+    loc2.user = admin_user
     loc2.insert()
 
     loc3 = SampleLocation(
@@ -67,6 +81,7 @@ def insert_sample_locations():
         ),
         learner_or_mentor='Learner'
     )
+    loc3.user = admin_user
     loc3.insert()
 
     loc4 = SampleLocation(
@@ -77,6 +92,7 @@ def insert_sample_locations():
         ),
         learner_or_mentor='Mentor'
     )
+    loc4.user = admin_user
     loc4.insert()
 
 # クラスの定義とデータベースの作成。ここで作成したクラスの構成がそのままデータベースにテーブルとして反映されます。
@@ -90,9 +106,16 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
     geom = Column(Geometry(geometry_type='POINT', srid=SpatialConstants.SRID))  
     learner_or_mentor = Column(String)
     username = Column(String)
-    language = Column(String)
+    language_learn = Column(String)
     language_speak = Column(String)
+    how_long_experienced = Column(String)
+    how_long_learning = Column(String)
+    online_inperson = Column(String)
+    user_id = Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     
+    # many to one side of the relationship of SampleLocation with User
+    user = db.relationship("User", back_populates="created_locations")
+
     @staticmethod
     def point_representation(latitude, longitude):
         point = 'POINT(%s %s)' % (longitude, latitude)
@@ -144,3 +167,33 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
 
     def update(self):
         db.session.commit()         
+
+# User login page
+class User(UserMixin, db.Model):
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    full_name = db.Column(db.String(200), nullable=False) # i.e Hanna Barbera
+    display_name = db.Column(db.String(20), unique=True, nullable=False) # i.e hanna_25
+    email = db.Column(db.String(120), unique=True, nullable=False) # i.e hanna@hanna-barbera.com
+    password = db.Column(db.String(32), nullable=False) 
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    created_locations = db.relationship('SampleLocation', back_populates='user', order_by="SampleLocation.description", lazy=True) 
+    
+    @classmethod
+    def get_by_id(cls, user_id):
+        return cls.query.filter_by(id=user_id).first()
+        
+    def __repr__(self):
+        return f"User({self.id}, '{self.display_name}', '{self.email}')"      
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()  
