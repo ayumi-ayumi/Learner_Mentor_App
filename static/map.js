@@ -257,7 +257,7 @@ function searchAddressSubmit() {
 function markerClick(marker) {
 
   console.log('Marker clicked');
-  console.log(marker.profile.description);
+  console.log(marker.profile);
 
   // de-select the previously active marker, if present, マーカーがクリックされたら星マークアイコンになるようにする
   // selecetedMarker=nullなのでfalse

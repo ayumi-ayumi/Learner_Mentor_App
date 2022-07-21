@@ -18,15 +18,14 @@ class MultiCheckboxField(SelectMultipleField):
     option_widget = widgets.CheckboxInput()
 
 class NewLocationForm(FlaskForm):
-    description = StringField('Location description',
-                           validators=[DataRequired(), Length(min=1, max=80)])
-    lookup_address = StringField('Search address')
-
+    description = StringField('Location description', validators=[DataRequired(), Length(min=1, max=80)])
+    username = StringField("Your name?", validators=[DataRequired(), Length(max=10)])
+    # lookup_address = StringField('Search address')
     learner_or_mentor = RadioField('Are you a learner or mentor?', validators=[DataRequired()], choices = ['Learner', 'Mentor'])
 
-    username = StringField("Your name?", validators=[DataRequired(), Length(max=10)])
 
-    # address = StringField('Your address?',validators=[DataRequired()])
+
+    address = StringField('Your address?',validators=[DataRequired()])
 
     coord_latitude = HiddenField('Latitude',validators=[DataRequired()])
 

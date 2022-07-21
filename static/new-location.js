@@ -8,7 +8,7 @@ function initAutocomplete() {
       mapTypeId: "roadmap",
     });
     // Create the search box and link it to the UI element.
-    const input = document.getElementById("lookup_address");
+    const input = document.getElementById("address");
     const searchBox = new google.maps.places.SearchBox(input);
   
     // Bias the SearchBox results towards current map's viewport.
