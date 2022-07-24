@@ -18,7 +18,7 @@
 
             <!-- form はforms.pyのNewLocationFormクラスを指している。app.py でformとしてインスタンス化されている。 -->
             <!-- Radio button for Learner or Mentor -->
-            <div class="form-group">
+            <div class="form-group learner_or_mentor">
                 {{ form.learner_or_mentor.label(class="form-control-label") }}
 
                 {% if form.learner_or_mentor.errors %}
