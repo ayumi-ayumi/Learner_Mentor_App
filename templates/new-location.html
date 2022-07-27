@@ -8,7 +8,7 @@
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">New Location</legend>
+            <legend class="border-bottom mb-4">Tell me about yourself</legend>
 
             {% if form.coord_latitude.errors or  form.coord_longitude.errors %}
             <div class="alert alert-danger" role="alert">
@@ -29,7 +29,7 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ form.learner_or_mentor(class="form-check",style="list-style-type:none") }}
+                    {{ form.learner_or_mentor(class="form-radio", style="list-style-type:none") }}
                 {% endif %}
             </div>
 
@@ -44,43 +44,11 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ form.address(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
-
-            <div class="form-group">
-                {{ form.description.label(class="form-control-label") }}
-                {% if form.description.errors %}
-                    {{ form.description(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.description.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.description(class="form-control form-control-lg") }}
+                    {{ form.address(class="form-control address form-control-lg") }}
                 {% endif %}
             </div>
             
-            
-            
-            <!-- Username form -->
-            <div class="form-group">
-                {{ form.username.label(class="form-control-label") }}
-                
-                {% if form.username.errors %}
-                {{ form.username(class="form-check is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.username.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ form.username(class="form-username") }}
-                {% endif %}
-            </div>
-            
-            <!-- language_learn form dropdown -->
+            <!-- language_learn form selectbox -->
             <div class="form-group">
                 {{ form.language_learn.label(class="form-control-label") }}
                 
@@ -96,7 +64,7 @@
                 {% endif %}
             </div>
             
-            <!-- language_speak form dropdown -->
+            <!-- language_speak form selectbox -->
             <div class="form-group">
                 {{ form.language_speak.label(class="form-control-label") }}
                 
@@ -124,7 +92,7 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ form.how_long_experienced(class="form-check",style="list-style-type:none") }}
+                    {{ form.how_long_experienced(class="form-radio",style="list-style-type:none") }}
                 {% endif %}
             </div>
 
@@ -140,7 +108,7 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ form.how_long_learning(class="form-check",style="list-style-type:none") }}
+                    {{ form.how_long_learning(class="form-radio",style="list-style-type:none") }}
                 {% endif %}
             </div>
 
@@ -156,7 +124,7 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ form.online_inperson(class="form-check",style="list-style-type:none") }}
+                    {{ form.online_inperson(class="form-radio",style="list-style-type:none") }}
                 {% endif %}
             </div>
         </fieldset>

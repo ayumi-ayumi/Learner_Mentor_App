@@ -52,7 +52,6 @@ def insert_sample_locations():
     admin_user.insert()
     
     loc1 = SampleLocation(
-        description='Brandenburger Tor',
         geom=SampleLocation.point_representation(
             latitude=52.516247, 
             longitude=13.377711
@@ -63,7 +62,6 @@ def insert_sample_locations():
     loc1.insert()
 
     loc2 = SampleLocation(
-        description='Schloss Charlottenburg',
         geom=SampleLocation.point_representation(
             latitude=52.520608, 
             longitude=13.295581
@@ -74,7 +72,6 @@ def insert_sample_locations():
     loc2.insert()
 
     loc3 = SampleLocation(
-        description='Tempelhofer Feld',
         geom=SampleLocation.point_representation(
             latitude=52.473580, 
             longitude=13.405252
@@ -85,7 +82,6 @@ def insert_sample_locations():
     loc3.insert()
 
     loc4 = SampleLocation(
-        description='Alexanderplatz',
         geom=SampleLocation.point_representation(
             latitude=52.5220, 
             longitude=13.4133
@@ -101,17 +97,19 @@ class SpatialConstants:
 class SampleLocation(db.Model): #first defined model class to store sample locations in the DB
     __tablename__ = 'sample_locations' #table is created and data is stored in a table   
 
-    id = Column(Integer, primary_key=True) #column in a table, primary key is an attribute that identifies the row of the respective table
-    description = Column(String(80)) #second column
+    id = Column(Integer, primary_key=True) 
+    #column in a table, primary key is an attribute that identifies the row of the respective table
+    # description = Column(String(80)) #second column
     geom = Column(Geometry(geometry_type='POINT', srid=SpatialConstants.SRID))  
     learner_or_mentor = Column(String)
-    username = Column(String)
+    # username = Column(String)
     language_learn = Column(String)
     language_speak = Column(String)
     how_long_experienced = Column(String)
     how_long_learning = Column(String)
     online_inperson = Column(String)
     user_id = Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    # user_name = Column(db.String(20), db.ForeignKey('users.display_name'), unique=True, nullable=False)
     
     # many to one side of the relationship of SampleLocation with User
     user = db.relationship("User", back_populates="created_locations")
@@ -149,12 +147,20 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
     def to_dict(self):
         return {
             'id': self.id,
-            'description': self.description,
+            # 'description': self.description,
             'location': {
                 'lng': self.get_location_longitude(),
                 'lat': self.get_location_latitude()
             },
-            'learner_or_mentor' : self.learner_or_mentor
+            'learner_or_mentor' : self.learner_or_mentor,
+            # 'address': self.address
+            'language_learn': self.language_learn,
+            'language_speak': self.language_speak,
+            'how_long_experienced': self.how_long_experienced,
+            'how_long_learning': self.how_long_learning,
+            'online_inperson': self.online_inperson
+            # 'user_name': self.user_name
+
         }    
 
     def insert(self):
@@ -178,7 +184,8 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False) # i.e hanna@hanna-barbera.com
     password = db.Column(db.String(32), nullable=False) 
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    created_locations = db.relationship('SampleLocation', back_populates='user', order_by="SampleLocation.description", lazy=True) 
+
+    created_locations = db.relationship('SampleLocation', back_populates='user', order_by="SampleLocation.geom", lazy=True) 
     
     @classmethod
     def get_by_id(cls, user_id):

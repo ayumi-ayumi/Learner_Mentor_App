@@ -53,9 +53,9 @@ def create_app(test_config=None):
         if form.validate_on_submit():            
             latitude = float(form.coord_latitude.data)
             longitude = float(form.coord_longitude.data)
-            description = form.description.data
+            # description = form.description.data
             learner_or_mentor = form.learner_or_mentor.data
-            username = form.username.data
+            # username = form.username.data
             language_learn = form.language_learn.data
             language_speak = form.language_speak.data
             how_long_experienced = form.how_long_experienced.data
@@ -64,7 +64,7 @@ def create_app(test_config=None):
             
 
             location = SampleLocation(
-                description=description,
+                # description=description,
                 geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude),
                 learner_or_mentor=learner_or_mentor,
                 username=username,
@@ -75,13 +75,12 @@ def create_app(test_config=None):
                 online_inperson=online_inperson
             )   
             location.user_id = current_user.id
+            # location.user_name = current_user.display_name
             location.insert()
-
 
             flash(f'New location created!', 'success')
             return redirect(url_for('home'))
     
-
         return render_template(
             'new-location.html',
             form=form,
@@ -93,22 +92,38 @@ def create_app(test_config=None):
         try:
             latitude = float(request.args.get('lat'))
             longitude = float(request.args.get('lng'))
-            description = request.args.get('description')
+            # description = request.args.get('description')
             learner_or_mentor = request.args.get('learner_or_mentor')
             user_id = int(request.args.get('user_id'))
+            # user_name = request.args.get('user_name')
+            address = request.args.get('address')
+            language_learn = request.args.get('language_learn')
+            language_speak = request.args.get('language_speak')
+            how_long_experienced = request.args.get('how_long_experienced')
+            how_long_learning = request.args.get('how_long_learning')
+            online_inperson = request.args.get('online_inperson')
 
             location = SampleLocation(
-                description=description,
+                # description=description,
                 geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude),
                 learner_or_mentor=learner_or_mentor,
-                user_id=user_id
+                user_id=user_id,
+                # user_name=user_name,
+                address=address,
+                language_learn=language_learn,
+                language_speak=language_speak,
+                how_long_experienced=how_long_experienced,
+                how_long_learning=how_long_learning,
+                online_inperson=online_inperson
+
+
             )   
             location.insert()
 
             return jsonify(
                 {
                     "success": True,
-                    # "location": location.to_dict()
+                    "location": location.to_dict()
                 }
             ), 200
         except:

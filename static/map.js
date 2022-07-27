@@ -11,13 +11,13 @@ let queryZoom;
 var selectedMarker = null;
 let selectedMarkerPopup, Popup;
 
-var DEFAULT_ICON = {
-  url: "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png"
-}
+// var DEFAULT_ICON = {
+//   url: "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png"
+// }
 
-var SELECTED_ICON = {
-  url: "http://maps.google.com/mapfiles/kml/paddle/grn-stars.png"
-}
+// var SELECTED_ICON = {
+//   url: "http://maps.google.com/mapfiles/kml/paddle/grn-stars.png"
+// }
 
 var Mentor_DEFAULT_ICON = {
   url: "http://maps.google.com/mapfiles/kml/paddle/pink-blank.png"
@@ -304,9 +304,11 @@ function markerClick(marker) {
   // Show popup for the clicked marker
   selectedMarkerPopup = new Popup(
     selectedMarker.position,
-    "<a href='/detail?id="+selectedMarker.profile.id + "'>" +selectedMarker.profile.description + selectedMarker.profile.learner_or_mentor + "</a>"
+    "<a href='/detail?id="+selectedMarker.profile.id + "'>" +selectedMarker.profile.location + selectedMarker.profile.description + "</a>"
   );
+  // console.log(selectedMarker)
   selectedMarkerPopup.setMap(map);
+  console.log(selectedMarker.profile)
 }
 
 // this is just for debugging purposes!
