@@ -216,7 +216,7 @@ function refreshMarkers(mapCenter, zoomLevel) {
       
       return marker;
     });
-
+    
     /*console.log(markers);
     console.log(markers.length);*/
 }
@@ -360,3 +360,6 @@ function dictToURI(dict) {
   }
   return str.join("&");
 }
+
+
+
