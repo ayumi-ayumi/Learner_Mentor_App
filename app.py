@@ -55,7 +55,7 @@ def create_app(test_config=None):
             longitude = float(form.coord_longitude.data)
             # description = form.description.data
             learner_or_mentor = form.learner_or_mentor.data
-            # username = form.username.data
+            user_name = User.display_name
             language_learn = form.language_learn.data
             language_speak = form.language_speak.data
             how_long_experienced = form.how_long_experienced.data
@@ -67,7 +67,7 @@ def create_app(test_config=None):
                 # description=description,
                 geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude),
                 learner_or_mentor=learner_or_mentor,
-                username=username,
+                user_name=user_name,
                 language_learn=language_learn,
                 language_speak=language_speak,
                 how_long_experienced=how_long_experienced,
@@ -75,10 +75,10 @@ def create_app(test_config=None):
                 online_inperson=online_inperson
             )   
             location.user_id = current_user.id
-            # location.user_name = current_user.display_name
+            location.user_name = current_user.display_name
             location.insert()
 
-            flash(f'New location created!', 'success')
+            flash(f'New location created!' , 'success')
             return redirect(url_for('home'))
     
         return render_template(
@@ -95,7 +95,7 @@ def create_app(test_config=None):
             # description = request.args.get('description')
             learner_or_mentor = request.args.get('learner_or_mentor')
             user_id = int(request.args.get('user_id'))
-            # user_name = request.args.get('user_name')
+            user_name = request.args.get('user_name')
             address = request.args.get('address')
             language_learn = request.args.get('language_learn')
             language_speak = request.args.get('language_speak')
@@ -108,14 +108,13 @@ def create_app(test_config=None):
                 geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude),
                 learner_or_mentor=learner_or_mentor,
                 user_id=user_id,
-                # user_name=user_name,
+                user_name=User.display_name,
                 address=address,
                 language_learn=language_learn,
                 language_speak=language_speak,
                 how_long_experienced=how_long_experienced,
                 how_long_learning=how_long_learning,
                 online_inperson=online_inperson
-
 
             )   
             location.insert()

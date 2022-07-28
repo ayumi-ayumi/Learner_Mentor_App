@@ -102,17 +102,21 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
     # description = Column(String(80)) #second column
     geom = Column(Geometry(geometry_type='POINT', srid=SpatialConstants.SRID))  
     learner_or_mentor = Column(String)
-    # username = Column(String)
+    user_name = Column(String)
     language_learn = Column(String)
     language_speak = Column(String)
     how_long_experienced = Column(String)
     how_long_learning = Column(String)
     online_inperson = Column(String)
-    user_id = Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    # user_name = Column(db.String(20), db.ForeignKey('users.display_name'), unique=True, nullable=False)
     
+    user_id = Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    # user_name = Column(db.String, db.ForeignKey('users.display_name'))
+
+    # userr = db.relationship('User', foreign_keys=[user_id])
+    # user_namee = db.relationship('User', foreign_keys=[user_name])
+
     # many to one side of the relationship of SampleLocation with User
-    user = db.relationship("User", back_populates="created_locations")
+    user = db.relationship("User", back_populates="created_locations") 
 
     @staticmethod
     def point_representation(latitude, longitude):
@@ -145,6 +149,8 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
         return point.x  
 
     def to_dict(self):
+        # user_name = User.display_name
+
         return {
             'id': self.id,
             # 'description': self.description,
@@ -154,12 +160,14 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
             },
             'learner_or_mentor' : self.learner_or_mentor,
             # 'address': self.address
+            # 'user_name': User.display_name, 
+            # 'user_name': User.query.get(id),
+            'user_name': self.user_name,
             'language_learn': self.language_learn,
             'language_speak': self.language_speak,
             'how_long_experienced': self.how_long_experienced,
             'how_long_learning': self.how_long_learning,
             'online_inperson': self.online_inperson
-            # 'user_name': self.user_name
 
         }    
 

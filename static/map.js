@@ -263,7 +263,6 @@ function markerClick(marker) {
   // selecetedMarker=nullなのでfalse
   let learner_or_mentor = marker.profile.learner_or_mentor
   if (selectedMarker) {
-    // console.log(selectedMarker.profile.learner_or_mentor)
     if(selectedMarker.profile.learner_or_mentor==='Learner' ){
       console.log("Learner default")
       selectedMarker.setIcon(Learner_DEFAULT_ICON);
@@ -304,7 +303,7 @@ function markerClick(marker) {
   // Show popup for the clicked marker
   selectedMarkerPopup = new Popup(
     selectedMarker.position,
-    "<a href='/detail?id="+selectedMarker.profile.id + "'>" +selectedMarker.profile.location + selectedMarker.profile.description + "</a>"
+    "<a href='/detail?id="+selectedMarker.profile.id + "'>" +selectedMarker.profile.learner_or_mentor + selectedMarker.profile.user_name + "</a>"
   );
   // console.log(selectedMarker)
   selectedMarkerPopup.setMap(map);
