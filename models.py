@@ -1,7 +1,8 @@
 from datetime import datetime
 import os
+from typing import Text
 from flask_login import UserMixin
-from sqlalchemy import Column, String, Integer, create_engine
+from sqlalchemy import ARRAY, Column, String, Integer, Text
 from flask_sqlalchemy import SQLAlchemy
 from geoalchemy2.types import Geometry
 from shapely.geometry import Point
@@ -56,7 +57,9 @@ def insert_sample_locations():
             latitude=52.516247, 
             longitude=13.377711
         ),
-        learner_or_mentor='Learner'
+        learner_or_mentor='Learner',
+        language_learn = ['C++', 'C/C#','Python','Java', 'JavaScript'],
+        language_speak = ['French', 'Spanish', 'English']
     )
     loc1.user = admin_user
     loc1.insert()
@@ -103,8 +106,8 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
     geom = Column(Geometry(geometry_type='POINT', srid=SpatialConstants.SRID))  
     learner_or_mentor = Column(String)
     user_name = Column(String)
-    language_learn = Column(String)
-    language_speak = Column(String)
+    language_learn = Column(ARRAY(String))
+    language_speak = Column(ARRAY(String))
     how_long_experienced = Column(String)
     how_long_learning = Column(String)
     online_inperson = Column(String)

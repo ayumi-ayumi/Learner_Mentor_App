@@ -213,12 +213,51 @@ function refreshMarkers(mapCenter, zoomLevel) {
       google.maps.event.addListener(marker, 'click', function(evt) {
         markerClick(this);
       });
-      
       return marker;
     });
     
     /*console.log(markers);
     console.log(markers.length);*/
+  }
+  
+// show all markers
+let button_on = document.getElementById('filter_all')
+button_on.addEventListener('click', showAllMarkers)
+
+function showAllMarkers() {
+  if (markers) {
+    markers.map(function(marker, i) {
+      marker.setVisible(true);
+    });
+  }
+}
+
+// Show only learner markers
+let button = document.getElementById('filter_learner_marker')
+button.addEventListener('click', hide_mentor_Markers)
+
+function hide_mentor_Markers() {
+  if (markers) {
+    markers.map(function(marker, i) {
+      let learner_or_marker = marker.profile.learner_or_mentor 
+      if (learner_or_marker === 'Mentor')
+      marker.setVisible(false);
+    });
+  }
+}
+
+// Show only Mentor markers
+let button2 = document.getElementById('filter_mentor_marker')
+button2.addEventListener('click', hide_learner_Markers)
+
+function hide_learner_Markers() {
+  if (markers) {
+    markers.map(function(marker, i) {
+      let learner_or_marker = marker.profile.learner_or_mentor 
+      if (learner_or_marker === 'Learner')
+      marker.setVisible(false);
+    });
+  }
 }
 
 function clearMarkers() {
@@ -301,9 +340,17 @@ function markerClick(marker) {
   selectedMarker = marker;
 
   // Show popup for the clicked marker
+  
   selectedMarkerPopup = new Popup(
     selectedMarker.position,
-    "<a href='/detail?id="+selectedMarker.profile.id + "'>" +selectedMarker.profile.learner_or_mentor + selectedMarker.profile.user_name + "</a>"
+    `<a href='/detail?id=${selectedMarker.profile.id}'>
+    <li>${selectedMarker.profile.user_name}</li>
+    <li>${selectedMarker.profile.learner_or_mentor}</li>
+    <li>${selectedMarker.profile.language_learn}</li>
+    <li>${selectedMarker.profile.language_speak}</li>
+    <li>I want to chat ${selectedMarker.profile.online_inperson}</li>
+    
+    </a>`
   );
   // console.log(selectedMarker)
   selectedMarkerPopup.setMap(map);
@@ -360,6 +407,8 @@ function dictToURI(dict) {
   }
   return str.join("&");
 }
+
+
 
 
 

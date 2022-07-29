@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 {% block head %}
-    <script src="{{ url_for('static', filename='new-location.js') }}"></script>
+    <script src="{{ url_for('static', filename='add-cafe.js') }}"></script>
 {% endblock %}
 {% block body %}
-    <button class="backToMain"><a href="{{ url_for('home') }}">Back to main</a></button>
+    <button><a href="{{ url_for('home') }}">Back to main</a></button>
 
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Tell me about yourself</legend>
+            <legend class="border-bottom mb-4">Add cafe</legend>
 
             {% if form.coord_latitude.errors or  form.coord_longitude.errors %}
             <div class="alert alert-danger" role="alert">

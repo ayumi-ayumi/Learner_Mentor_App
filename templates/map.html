@@ -1,10 +1,9 @@
 {% extends "layout.html" %}
 {% block head %}
   <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" /> -->
-  <script src="{{ url_for('static', filename='map.js') }}"></script>
 {% endblock %}
 {% block body %}
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg">
     <span class="navbar-brand mb-0 h1">Navbar</span>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -13,7 +12,6 @@
       {% if current_user.is_authenticated %}
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <span class="nav-link text-reset">Hi {{ current_user }}!</span>
           <span class="nav-link text-reset">Hi {{ current_user.display_name }}!</span>
         </li>
         <li class="nav-item">
@@ -44,11 +42,30 @@
     inside another HTML element with fixed size prevents that -->
   <div style="height: 600px;">
       <!--Google map-->
-      <ul class="map-tab">
-        
-        <li class="map-tab_item" >Learner</li>
-        <li class="map-tab_item" >Mentor</li>
-    </ul>
+      <!-- <ul class="map-tab">
+        <li class="filter" id="filter_all">
+          Show All 
+        </li>
+        <li class="filter" id="filter_learner_marker">
+           Learner <img src="http://maps.google.com/mapfiles/kml/paddle/grn-blank.png" alt="Learner marker">
+        </li>
+        <li class="filter" id="filter_mentor_marker">
+         Mentor <img src="http://maps.google.com/mapfiles/kml/paddle/pink-blank.png" alt="Mentor marker">
+        </li>
+      </ul> -->
+      <div class="map-tab">
+        <div class="filter" id="filter_all">
+          <div> Show All </div>
+        </div>
+        <div class="filter" id="filter_learner_marker">
+          <div> Learner <img src="http://maps.google.com/mapfiles/kml/paddle/grn-blank.png" alt="Learner marker">
+          </div>
+        </div>
+        <div class="filter" id="filter_mentor_marker">
+          <div> Mentor <img src="http://maps.google.com/mapfiles/kml/paddle/pink-blank.png" alt="Mentor marker"></div>
+        </div>
+      </div>
+
       <div id="map" style="height: 100%;">
       </div>
   </div>
@@ -58,4 +75,6 @@
     src="https://maps.googleapis.com/maps/api/js?key={{map_key}}&callback=initMap&libraries=geometry&v=weekly"
     async
   ></script>
+  <script src="{{ url_for('static', filename='map.js') }}"></script>
+
 {% endblock %}

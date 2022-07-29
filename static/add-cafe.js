@@ -1,9 +1,6 @@
 let markers = [];
 let map = null;
 
-
-// Using for new-location and add-cafe
-
 function initAutocomplete() {
     map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: 52.5200, lng: 13.4050 }, //We start at the center of Berlin
@@ -13,19 +10,16 @@ function initAutocomplete() {
     // Create the search box and link it to the UI element.
     const input = document.getElementById("address");
     const searchBox = new google.maps.places.SearchBox(input);
-    
+  
     // Bias the SearchBox results towards current map's viewport.
     map.addListener("bounds_changed", () => {
-      
-      // searchBox.setPlaces(map.getBounds());
       searchBox.setBounds(map.getBounds());
     });
-    
+  
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
     searchBox.addListener("places_changed", () => {
       const places = searchBox.getPlaces();
-      console.log(places)
   
       if (places.length == 0) {
         return;
@@ -35,7 +29,6 @@ function initAutocomplete() {
 
       // We take only the first place and ignore the (possible) rest
       let place = places[0];
-      console.log(place.name)
 
       if (!place.geometry || !place.geometry.location) {
         console.log("Returned place contains no geometry");
@@ -103,3 +96,6 @@ function updateFormCoordinates(newLat, newLng) {
 }  
 
 
+let learner_or_mentor = document.getElementsByClassName('learner_or_mentor')
+
+console.log(123)

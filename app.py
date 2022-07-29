@@ -9,9 +9,6 @@ from models import setup_db, SampleLocation, db_drop_and_create_all, User
 from sqlalchemy.exc import IntegrityError
 import hashlib
 
-
-
-
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
@@ -56,11 +53,13 @@ def create_app(test_config=None):
             # description = form.description.data
             learner_or_mentor = form.learner_or_mentor.data
             user_name = User.display_name
-            language_learn = form.language_learn.data
-            language_speak = form.language_speak.data
+            language_learn = list(form.language_learn.data)
+            # language_learn = form.getlist('language_learn').data
+            # language_learn = request.form.getlist('language_learn')
+            language_speak = list(form.language_speak.data)
             how_long_experienced = form.how_long_experienced.data
             how_long_learning = form.how_long_learning.data
-            online_inperson = form.online_inperson.data
+            online_inperson = list(form.online_inperson.data)
             
 
             location = SampleLocation(
@@ -215,6 +214,51 @@ def create_app(test_config=None):
         logout_user()
         flash(f'You have logged out!', 'success')
         return redirect(url_for('home'))   
+
+    # @app.route("/add-cafe", methods=['GET', 'POST'])
+    # @login_required
+    # def add_cafe():
+    #     form = NewCafeForm()
+    #     pass
+
+    #     if form.validate_on_submit():            
+    #         latitude = float(form.coord_latitude.data)
+    #         longitude = float(form.coord_longitude.data)
+    #         # description = form.description.data
+    #         learner_or_mentor = form.learner_or_mentor.data
+    #         user_name = User.display_name
+    #         # language_learn = list(form.language_learn.data)
+    #         language_learn = form.getlist('language_learn').data
+    #         # language_learn = form.getlist('language_learn')
+    #         language_speak = list(form.language_speak.data)
+    #         how_long_experienced = form.how_long_experienced.data
+    #         how_long_learning = form.how_long_learning.data
+    #         online_inperson = list(form.online_inperson.data)
+            
+
+    #         location = SampleLocation(
+    #             # description=description,
+    #             geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude),
+    #             learner_or_mentor=learner_or_mentor,
+    #             user_name=user_name,
+    #             language_learn=language_learn,
+    #             language_speak=language_speak,
+    #             how_long_experienced=how_long_experienced,
+    #             how_long_learning=how_long_learning,
+    #             online_inperson=online_inperson
+    #         )   
+    #         location.user_id = current_user.id
+    #         location.user_name = current_user.display_name
+    #         location.insert()
+
+    #         flash(f'New location created!' , 'success')
+    #         return redirect(url_for('home'))
+    
+    #     return render_template(
+    #         'new-location.html',
+    #         form=form,
+    #         map_key=os.getenv('GOOGLE_MAPS_API_KEY', 'GOOGLE_MAPS_API_KEY_WAS_NOT_SET?!')
+    #     ) 
 
     # これここでだいじょうぶ？ line135の可能性あり
     return app
