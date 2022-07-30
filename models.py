@@ -1,8 +1,9 @@
 from datetime import datetime
 import os
 from typing import Text
+from xmlrpc.client import Boolean
 from flask_login import UserMixin
-from sqlalchemy import ARRAY, Column, String, Integer, Text
+from sqlalchemy import ARRAY, BOOLEAN, Column, String, Integer
 from flask_sqlalchemy import SQLAlchemy
 from geoalchemy2.types import Geometry
 from shapely.geometry import Point
@@ -110,7 +111,7 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
     language_speak = Column(ARRAY(String))
     how_long_experienced = Column(String)
     how_long_learning = Column(String)
-    online_inperson = Column(String)
+    online_inperson = Column(ARRAY(String))
     
     user_id = Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     # user_name = Column(db.String, db.ForeignKey('users.display_name'))
@@ -197,6 +198,10 @@ class User(UserMixin, db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     created_locations = db.relationship('SampleLocation', back_populates='user', order_by="SampleLocation.geom", lazy=True) 
+
+    created_cafe_locations = db.relationship('AddCafe', back_populates='user', order_by="AddCafe.geom", lazy=True) 
+
+    
     
     @classmethod
     def get_by_id(cls, user_id):
@@ -215,3 +220,81 @@ class User(UserMixin, db.Model):
 
     def update(self):
         db.session.commit()  
+
+class AddCafe(db.Model):
+    __tablename__ = 'cafe_locations' 
+
+    id = Column(Integer, primary_key=True) 
+    geom = Column(Geometry(geometry_type='POINT', srid=SpatialConstants.SRID))  
+    address_cafe = Column(String)
+    wifi = Column(BOOLEAN)
+    sockets = Column(BOOLEAN)
+    work_friendly_table = Column(BOOLEAN)
+    teracce = Column(BOOLEAN)
+    pet_friendly = Column(BOOLEAN)
+    quiet = Column(BOOLEAN)
+    user_name = Column(String)
+    
+    user_id = Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user = db.relationship("User", back_populates="created_cafe_locations") 
+
+    @staticmethod
+    def point_representation(latitude, longitude):
+        point = 'POINT(%s %s)' % (longitude, latitude)
+        wkb_element = WKTElement(point, srid=SpatialConstants.SRID)
+        return wkb_element
+
+    @staticmethod
+    def get_items_within_radius(lat, lng, radius):
+        """Return all sample locations within a given radius (in meters)"""
+
+        #TODO: The arbitrary limit = 100 is just a quick way to make sure 
+        # we won't return tons of entries at once, 
+        # paging needs to be in place for real usecase
+        results = AddCafe.query.filter(
+            ST_DWithin(
+                cast(AddCafe.geom, Geography),
+                cast(from_shape(Point(lng, lat)), Geography),
+                radius)
+            ).limit(100).all() 
+
+        return [l.to_dict() for l in results]    
+
+    def get_location_latitude(self):
+        point = to_shape(self.geom)
+        return point.y
+
+    def get_location_longitude(self):
+        point = to_shape(self.geom)
+        return point.x  
+
+    def to_dict(self):
+        # user_name = User.display_name
+
+        return {
+            # 'description': self.description,
+            'id': self.id,
+            'address_cafe': self.address_cafe,
+            'location': {
+                'lng': self.get_location_longitude(),
+                'lat': self.get_location_latitude()
+            },
+            'wifi' : self.wifi,
+            'sockets': self.sockets,
+            'work_friendly_table': self.work_friendly_table,
+            'teracce': self.teracce,
+            'pet_friendly': self.pet_friendly,
+            'quiet': self.quiet,
+            'user_name': self.user_name,
+        }    
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()         

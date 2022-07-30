@@ -8,7 +8,7 @@ function initAutocomplete() {
       mapTypeId: "roadmap",
     });
     // Create the search box and link it to the UI element.
-    const input = document.getElementById("address");
+    const input = document.getElementById("address_cafe");
     const searchBox = new google.maps.places.SearchBox(input);
   
     // Bias the SearchBox results towards current map's viewport.
@@ -29,7 +29,7 @@ function initAutocomplete() {
 
       // We take only the first place and ignore the (possible) rest
       let place = places[0];
-
+      console.log(place)
       if (!place.geometry || !place.geometry.location) {
         console.log("Returned place contains no geometry");
         return;

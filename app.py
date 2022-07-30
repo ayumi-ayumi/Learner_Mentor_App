@@ -1,11 +1,12 @@
+from email.headerregistry import Address
 import os
 import sys
 from flask import Flask, request, abort, jsonify, render_template, url_for, flash, redirect
 from flask_cors import CORS
 import traceback
 from flask_login import LoginManager, login_required, login_user, logout_user, login_manager, current_user
-from forms import NewLocationForm, RegistrationForm, LoginForm
-from models import setup_db, SampleLocation, db_drop_and_create_all, User
+from forms import AddCafeForm, NewLocationForm, RegistrationForm, LoginForm
+from models import AddCafe, setup_db, SampleLocation, db_drop_and_create_all, User
 from sqlalchemy.exc import IntegrityError
 import hashlib
 
@@ -53,6 +54,7 @@ def create_app(test_config=None):
             # description = form.description.data
             learner_or_mentor = form.learner_or_mentor.data
             user_name = User.display_name
+            language_learn = list(form.language_learn.data)
             language_learn = list(form.language_learn.data)
             # language_learn = form.getlist('language_learn').data
             # language_learn = request.form.getlist('language_learn')
@@ -137,10 +139,13 @@ def create_app(test_config=None):
             radius = int(request.args.get('radius'))
             
             locations = SampleLocation.get_items_within_radius(latitude, longitude, radius)
+            locations_cafe = AddCafe.get_items_within_radius(latitude, longitude, radius)
+
             return jsonify(
                 {
                     "success": True,
-                    "results": locations
+                    "results": locations + locations_cafe
+                    # "results_cafe": locations_cafe
                 }
             ), 200
         except:
@@ -215,50 +220,50 @@ def create_app(test_config=None):
         flash(f'You have logged out!', 'success')
         return redirect(url_for('home'))   
 
-    # @app.route("/add-cafe", methods=['GET', 'POST'])
-    # @login_required
-    # def add_cafe():
-    #     form = NewCafeForm()
-    #     pass
+    @app.route("/add-cafe", methods=['GET', 'POST'])
+    @login_required
+    def add_cafe():
+        form = AddCafeForm()
+        pass
 
-    #     if form.validate_on_submit():            
-    #         latitude = float(form.coord_latitude.data)
-    #         longitude = float(form.coord_longitude.data)
-    #         # description = form.description.data
-    #         learner_or_mentor = form.learner_or_mentor.data
-    #         user_name = User.display_name
-    #         # language_learn = list(form.language_learn.data)
-    #         language_learn = form.getlist('language_learn').data
-    #         # language_learn = form.getlist('language_learn')
-    #         language_speak = list(form.language_speak.data)
-    #         how_long_experienced = form.how_long_experienced.data
-    #         how_long_learning = form.how_long_learning.data
-    #         online_inperson = list(form.online_inperson.data)
+        if form.validate_on_submit():            
+            # description = form.description.data
+            address_cafe = form.address_cafe.data
+            latitude = float(form.coord_latitude.data)
+            longitude = float(form.coord_longitude.data)
+            wifi = form.wifi.data
+            sockets = form.sockets.data
+            work_friendly_table = form.work_friendly_table.data
+            teracce = form.teracce.data
+            pet_friendly = form.pet_friendly.data
+            user_name = User.display_name
+            quiet = form.quiet.data
             
 
-    #         location = SampleLocation(
-    #             # description=description,
-    #             geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude),
-    #             learner_or_mentor=learner_or_mentor,
-    #             user_name=user_name,
-    #             language_learn=language_learn,
-    #             language_speak=language_speak,
-    #             how_long_experienced=how_long_experienced,
-    #             how_long_learning=how_long_learning,
-    #             online_inperson=online_inperson
-    #         )   
-    #         location.user_id = current_user.id
-    #         location.user_name = current_user.display_name
-    #         location.insert()
+            location = AddCafe(
+                # description=description,
+                address_cafe=address_cafe,
+                geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude),
+                wifi=wifi,
+                sockets=sockets,
+                work_friendly_table=work_friendly_table,
+                teracce=teracce,
+                pet_friendly = pet_friendly,
+                quiet=quiet,
+                user_name=user_name
+            )   
+            location.user_id = current_user.id
+            location.user_name = current_user.display_name
+            location.insert()
 
-    #         flash(f'New location created!' , 'success')
-    #         return redirect(url_for('home'))
+            flash(f'New cafe added!' , 'success')
+            return redirect(url_for('home'))
     
-    #     return render_template(
-    #         'new-location.html',
-    #         form=form,
-    #         map_key=os.getenv('GOOGLE_MAPS_API_KEY', 'GOOGLE_MAPS_API_KEY_WAS_NOT_SET?!')
-    #     ) 
+        return render_template(
+            'add-cafe.html',
+            form=form,
+            map_key=os.getenv('GOOGLE_MAPS_API_KEY', 'GOOGLE_MAPS_API_KEY_WAS_NOT_SET?!')
+        ) 
 
     # これここでだいじょうぶ？ line135の可能性あり
     return app

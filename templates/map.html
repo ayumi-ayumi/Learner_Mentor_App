@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block head %}
   <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" /> -->
+
 {% endblock %}
 {% block body %}
   <nav class="navbar navbar-expand-lg">
@@ -16,6 +17,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('new_location') }}">New Location</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('add_cafe') }}">Add cafe</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
@@ -63,6 +67,9 @@
         </div>
         <div class="filter" id="filter_mentor_marker">
           <div> Mentor <img src="http://maps.google.com/mapfiles/kml/paddle/pink-blank.png" alt="Mentor marker"></div>
+        </div>
+        <div class="filter" id="filter_cafe_marker">
+          <div> Cafe <img src="http://maps.google.com/mapfiles/kml/shapes/coffee.png" alt="Cafe marker"></div>
         </div>
       </div>
 

@@ -19,6 +19,10 @@ let selectedMarkerPopup, Popup;
 //   url: "http://maps.google.com/mapfiles/kml/paddle/grn-stars.png"
 // }
 
+var Cafe_ICON = {
+  url: "http://maps.google.com/mapfiles/kml/shapes/coffee.png"
+}
+
 var Mentor_DEFAULT_ICON = {
   url: "http://maps.google.com/mapfiles/kml/paddle/pink-blank.png"
 }
@@ -182,7 +186,10 @@ function refreshMarkers(mapCenter, zoomLevel) {
       }  
       
       // place new markers in the map
+      // placeItemsInMap(response_JSON.results_cafe)
       placeItemsInMap(response_JSON.results)
+      // markers = response_JSON.results.concat(response_JSON.results_cafe)
+      // console.log(markers)
     });
   }
   
@@ -192,6 +199,7 @@ function refreshMarkers(mapCenter, zoomLevel) {
     // create an array of markers based on the given "items" array.
     // The map() method here has nothing to do with the Google Maps API.
     markers = items.map(function(item, i) {
+      console.log(markers)
       var marker = new google.maps.Marker({
         map: map,
         position: item.location
@@ -199,16 +207,16 @@ function refreshMarkers(mapCenter, zoomLevel) {
       
       if (item.learner_or_mentor === "Learner") {
         marker.setIcon(Learner_DEFAULT_ICON)
-      } else {
+      } else if(item.learner_or_mentor === "Mentor"){
         marker.setIcon(Mentor_DEFAULT_ICON)
+      } else {
+        marker.setIcon(Cafe_ICON)
       }
-        // marker.setIcon(Mentor_DEFAULT_ICON)
-
+      
       //we attach the item to the marker, so when the marker is selected
       //we can get all the item data to fill the highlighted profile box under
       // the map 
       marker.profile = item;
-      // console.log(marker.profile)
       
       google.maps.event.addListener(marker, 'click', function(evt) {
         markerClick(this);
@@ -216,8 +224,7 @@ function refreshMarkers(mapCenter, zoomLevel) {
       return marker;
     });
     
-    /*console.log(markers);
-    console.log(markers.length);*/
+    console.log(markers.length);
   }
   
 // show all markers
@@ -226,6 +233,7 @@ button_on.addEventListener('click', showAllMarkers)
 
 function showAllMarkers() {
   if (markers) {
+    console.log(markers)
     markers.map(function(marker, i) {
       marker.setVisible(true);
     });
@@ -233,29 +241,48 @@ function showAllMarkers() {
 }
 
 // Show only learner markers
-let button = document.getElementById('filter_learner_marker')
-button.addEventListener('click', hide_mentor_Markers)
+let filter_learner_marker = document.getElementById('filter_learner_marker')
+filter_learner_marker.addEventListener('click', hide_mentor_Markers)
 
 function hide_mentor_Markers() {
   if (markers) {
+    console.log(markers)
     markers.map(function(marker, i) {
       let learner_or_marker = marker.profile.learner_or_mentor 
-      if (learner_or_marker === 'Mentor')
-      marker.setVisible(false);
-    });
+      let cafe_quiet = marker.profile.quiet 
+      // let cafe_marker = marker.profile.pet_friendly 
+      // if (typeof(cafe_marker) === Boolean)  {
+        if (learner_or_marker === 'Mentor' || typeof(cafe_quiet) === "boolean") 
+        marker.setVisible(false);
+      });
+    }
   }
-}
-
+  
 // Show only Mentor markers
-let button2 = document.getElementById('filter_mentor_marker')
-button2.addEventListener('click', hide_learner_Markers)
+let filter_mentor_marker = document.getElementById('filter_mentor_marker')
+filter_mentor_marker.addEventListener('click', hide_learner_Markers)
 
 function hide_learner_Markers() {
   if (markers) {
     markers.map(function(marker, i) {
       let learner_or_marker = marker.profile.learner_or_mentor 
-      if (learner_or_marker === 'Learner')
+      let cafe_quiet = marker.profile.quiet 
+      if (learner_or_marker === 'Learner' || typeof(cafe_quiet) === "boolean")
       marker.setVisible(false);
+    });
+  }
+}
+
+//Show only cafe markers
+let filter_cafe_marker = document.getElementById('filter_cafe_marker')
+filter_cafe_marker.addEventListener('click', hide_learner_Mentor_Markers)
+
+function hide_learner_Mentor_Markers() {
+  if (markers) {
+    markers.map(function(marker, i) {
+      let learner_or_marker = marker.profile.learner_or_mentor 
+      if (learner_or_marker === 'Learner' || learner_or_marker === 'Mentor') 
+        marker.setVisible(false);
     });
   }
 }
@@ -301,60 +328,85 @@ function markerClick(marker) {
   // de-select the previously active marker, if present, マーカーがクリックされたら星マークアイコンになるようにする
   // selecetedMarker=nullなのでfalse
   let learner_or_mentor = marker.profile.learner_or_mentor
-  if (selectedMarker) {
-    if(selectedMarker.profile.learner_or_mentor==='Learner' ){
-      console.log("Learner default")
-      selectedMarker.setIcon(Learner_DEFAULT_ICON);
-      // return
-      console.log(selectedMarker)
+  if (learner_or_mentor === "Learner" || learner_or_mentor === "Mentor" ) {
+    if (selectedMarker) {
+      if(selectedMarker.profile.learner_or_mentor==='Learner' ){
+        console.log("Learner default")
+        selectedMarker.setIcon(Learner_DEFAULT_ICON);
+        // return
+        console.log(selectedMarker)
+      } 
+      if(selectedMarker.profile.learner_or_mentor==='Mentor'){
+        console.log("mentor default")
+        selectedMarker.setIcon(Mentor_DEFAULT_ICON);
+        console.log(selectedMarker)
+      }
     } 
-    if(selectedMarker.profile.learner_or_mentor==='Mentor'){
-      console.log("mentor default")
-      selectedMarker.setIcon(Mentor_DEFAULT_ICON);
-      console.log(selectedMarker)
-    }
-  } 
-  
-  if(learner_or_mentor==='Learner'){
-    console.log("learner selected")
-    marker.setIcon(Learner_SELECTED_ICON)
-  } 
-  if (learner_or_mentor==='Mentor') {
-    console.log("Mentor selected")
-    marker.setIcon(Mentor_SELECTED_ICON)
-  }
-   
-  // if (selectedMarker) {
-    // console.log(selectedMarker)
-    // selectedMarker.setIcon(DEFAULT_ICON);
-  // }
-  // console.log(selectedMarker)
-  // marker.setIcon(SELECTED_ICON);
-
-  // remove the popup for the previously selected marker
-  if (selectedMarkerPopup) {
-    selectedMarkerPopup.setMap(null);
-  }
-  
-  // update selected marker reference。クリックしたアイコンの前のアイコンにmakerを設定
-  selectedMarker = marker;
-
-  // Show popup for the clicked marker
-  
-  selectedMarkerPopup = new Popup(
-    selectedMarker.position,
-    `<a href='/detail?id=${selectedMarker.profile.id}'>
-    <li>${selectedMarker.profile.user_name}</li>
-    <li>${selectedMarker.profile.learner_or_mentor}</li>
-    <li>${selectedMarker.profile.language_learn}</li>
-    <li>${selectedMarker.profile.language_speak}</li>
-    <li>I want to chat ${selectedMarker.profile.online_inperson}</li>
     
-    </a>`
-  );
-  // console.log(selectedMarker)
-  selectedMarkerPopup.setMap(map);
-  console.log(selectedMarker.profile)
+    if(learner_or_mentor==='Learner'){
+      console.log("learner selected")
+      marker.setIcon(Learner_SELECTED_ICON)
+    } 
+    if (learner_or_mentor==='Mentor') {
+      console.log("Mentor selected")
+      marker.setIcon(Mentor_SELECTED_ICON)
+    }
+     
+    // if (selectedMarker) {
+      // console.log(selectedMarker)
+      // selectedMarker.setIcon(DEFAULT_ICON);
+    // }
+    // console.log(selectedMarker)
+    // marker.setIcon(SELECTED_ICON);
+  
+    // remove the popup for the previously selected marker
+    if (selectedMarkerPopup) {
+      selectedMarkerPopup.setMap(null);
+    }
+    
+    // update selected marker reference。クリックしたアイコンの前のアイコンにmakerを設定
+    selectedMarker = marker;
+  
+    // Show popup for the clicked marker
+    
+    selectedMarkerPopup = new Popup(
+      selectedMarker.position,
+      `<a href='/detail?id=${selectedMarker.profile.id}'>
+      <li>${selectedMarker.profile.user_name}</li>
+      <li>${selectedMarker.profile.learner_or_mentor}</li>
+      <li>${selectedMarker.profile.language_learn}</li>
+      <li>${selectedMarker.profile.language_speak}</li>
+      <li>I want to chat ${selectedMarker.profile.online_inperson}</li>
+      </a>`
+    );
+    selectedMarkerPopup.setMap(map);
+    console.log(selectedMarker.profile)
+  } else {
+    // remove the popup for the previously selected marker
+    if (selectedMarkerPopup) {
+      selectedMarkerPopup.setMap(null);
+    }
+    
+    // update selected marker reference。クリックしたアイコンの前のアイコンにmakerを設定
+    selectedMarker = marker;
+  
+    // Show popup for the clicked marker
+    
+    selectedMarkerPopup = new Popup(
+      selectedMarker.position,
+      `<a href='/detail?id=${selectedMarker.profile.id}'>
+      <li>${selectedMarker.profile.address_cafe}</li>
+      <li>Wifi: ${selectedMarker.profile.wifi}</li>
+      <li>Sockets: ${selectedMarker.profile.sockets}</li>
+      <li>Work-friendly tables/chairs: ${selectedMarker.profile.work_friendly_table}</li>
+      <li>Teracce: ${selectedMarker.profile.teracce}</li>
+      <li>Pet-friendly: ${selectedMarker.profile.pet_friendly}</li>
+      <li>Quiet: ${selectedMarker.profile.quiet}</li>
+      </a>`
+    );
+    selectedMarkerPopup.setMap(map);
+    console.log(selectedMarker.profile)
+  }
 }
 
 // this is just for debugging purposes!
