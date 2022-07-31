@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block head %}
-  <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" /> -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" />
 
 {% endblock %}
 {% block body %}
-  <nav class="navbar navbar-expand-lg">
+  <nav class="navbar navbar-expand-lg navbar-light">
     <span class="navbar-brand mb-0 h1">Navbar</span>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -45,18 +45,6 @@
   <!--Sometimes the google map will not render / the page is blank. Giving the map div a height prop and putting it 
     inside another HTML element with fixed size prevents that -->
   <div style="height: 600px;">
-      <!--Google map-->
-      <!-- <ul class="map-tab">
-        <li class="filter" id="filter_all">
-          Show All 
-        </li>
-        <li class="filter" id="filter_learner_marker">
-           Learner <img src="http://maps.google.com/mapfiles/kml/paddle/grn-blank.png" alt="Learner marker">
-        </li>
-        <li class="filter" id="filter_mentor_marker">
-         Mentor <img src="http://maps.google.com/mapfiles/kml/paddle/pink-blank.png" alt="Mentor marker">
-        </li>
-      </ul> -->
       <div class="map-tab">
         <div class="filter" id="filter_all">
           <div> Show All </div>
@@ -72,6 +60,7 @@
           <div> Cafe <img src="http://maps.google.com/mapfiles/kml/shapes/coffee.png" alt="Cafe marker"></div>
         </div>
       </div>
+      <!--Google map-->
 
       <div id="map" style="height: 100%;">
       </div>

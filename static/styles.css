@@ -270,17 +270,17 @@ font-family: 'Roboto Condensed', sans-serif;
 /* map.html */
 .navbar {
   background-color: rgb(238, 237, 237);
-  color: black;
+  color: black!important;
   border: #3C454C 1px solid;
   border-radius: 10px;
   box-shadow: 3px 3px black;
 }
-.navbar .hover:hover {
+/* .navbar .hover:hover {
   background-color: #dded78;
   border-radius: 50%;
   transition: 0.2s;
   transition: 0.2s ease-in;
-}
+} */
 .map-tab {
   margin: 20px 0 10px 0;
   padding: 0;
@@ -298,7 +298,6 @@ font-family: 'Roboto Condensed', sans-serif;
   border-radius: 10px;
   box-shadow: 3px 3px grey;
   transition:  0.2s;
-  
 }
 .map-tab .filter div:active {
   position: relative;
@@ -312,7 +311,6 @@ font-family: 'Roboto Condensed', sans-serif;
   background-color: #dded78;
   transition: 0.1s;
 }
-
 .map-tab .filter img {
   display: inline-block;
   width: 40px;

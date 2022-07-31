@@ -87,10 +87,18 @@ function initMap() {
         const bubbleAnchor = document.createElement("div");
         const content = document.createElement("div");
         content.classList.add("popup-bubble");
+        content.setAttribute('id', 'popup-bubble')
         content.innerHTML = contentText;
 
         bubbleAnchor.classList.add("popup-bubble-anchor");
         bubbleAnchor.appendChild(content);
+        
+        const close_button= document.createElement('button')
+        close_button.type = 'button'
+        close_button.innerText = "X"
+        close_button.setAttribute('id', 'close_button')
+        content.appendChild(close_button)
+
         // This zero-height div is positioned at the bottom of the tip.
         this.containerDiv = document.createElement("div");
         this.containerDiv.classList.add("popup-container");
@@ -129,7 +137,7 @@ function initMap() {
         }
       }
       close(){
-        this.containerDiv.remove()
+          this.containerDiv.remove()
       }
     }
   }
@@ -373,13 +381,30 @@ function markerClick(marker) {
       <li>${selectedMarker.profile.language_learn}</li>
       <li>${selectedMarker.profile.language_speak}</li>
       <li>I want to chat ${selectedMarker.profile.online_inperson}</li>
-      </a>
-      <button id="close_popup" type="button">X</button>`
+      </a>`
     );
     selectedMarkerPopup.setMap(map);
     console.log(selectedMarker.profile)
+    
+    // let el = document.getElementById('close_button')
+    // el.addEventListener('click', function(){
+    //   console.log(123)
+      // const close_button= document.createElement('button')
 
- 
+      // const el = document.getElementById('close_button')
+      // console.log(el.innerHTML)
+      // close_button.type = 'button'
+      // close_button.innerText = "X"
+      // close_button.setAttribute('id', 'close_button')
+      // el.appendChild(close_button)
+      
+      // window.addEventListener('DOMContentLoaded', ()=>{
+      //   const a = document.getElementById('close_button')
+      //   console.log(a)
+      //   a.addEventListener('click', function(){
+      //     console.log(123)
+      //   })
+      // });
 
   } else {  // below for cafe info
 
@@ -410,20 +435,21 @@ function markerClick(marker) {
 }
 
 
-const maps= document.getElementById('close_popup')
-maps.onclick = function(){
-  console.log('Hello');
-}
-// maps.addEventListener('click', function(){
-//   // let a = selectedMarkerPopup.containerDiv.textContent
-//   console.log(123)
-//     // selectedMarkerPopup.close()
-//     // selectedMarker.setIcon(Learner_DEFAULT_ICON)
-//   // if(a.indexOf('Learnrer'===!-1)){ // Learner
-//   //   selectedMarkerPopup.close()
-//   //   // marker.setIcon(Learner_DEFAULT_ICON);
-//   // }
-// })
+
+
+
+// window.addEventListener('DOMContentLoaded', function(){
+//   const a = document.getElementById('close_button')
+//   console.log(a)
+//   a.addEventListener('click', function(){
+//     console.log(123)
+//   })
+// });
+
+// });
+// let abc = document.getElementById('filter_all')
+// let abc = document.getElementById('close_button')
+// ;
 
 
 // this is just for debugging purposes!
