@@ -3,9 +3,9 @@
     <script src="{{ url_for('static', filename='add-cafe.js') }}"></script>
 {% endblock %}
 {% block body %}
-    <button><a href="{{ url_for('home') }}">Back to main</a></button>
+    <button  class="backToMain"><a href="{{ url_for('home') }}">Back to main</a></button>
 
-    <form method="POST" action="">
+    <form method="POST" action="" class="add-cafe">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Add cafe</legend>
@@ -17,40 +17,39 @@
             {% endif %}
 
             <!-- form はforms.pyのNewLocationFormクラスを指している。app.py でformとしてインスタンス化されている。 -->
-            <!-- Radio button for Learner or Mentor -->
-            <div class="form-group wifi">
-                {{ form.wifi.label(class="form-control-label") }}
-
-                {% if form.wifi.errors %}
-                    {{ form.wifi(class="form-check is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.wifi.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.wifi(class="form-radio", style="list-style-type:none") }}
-                {% endif %}
-            </div>
-
+            
             <!-- Address form -->
             <div class="form-group">
                 {{ form.address_cafe.label(class="form-control-label") }}
                 {% if form.address_cafe.errors %}
-                    {{ form.address_cafe(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.address_cafe.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
+                {{ form.address_cafe(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.address_cafe.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
                 {% else %}
-                    {{ form.address_cafe(class="form-control address_cafe form-control-lg") }}
+                {{ form.address_cafe(class="form-control address_cafe form-control-lg") }}
                 {% endif %}
             </div>
             
-            <!-- language_learn form selectbox -->
+            <!-- Wifi -->
+            <div class="form-group wifi">
+                {% if form.wifi.errors %}
+                {{ form.wifi(class="form-check is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.wifi.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.wifi(class="form-checkbox") }}
+                {{ form.wifi.label(class="form-control-label wifi") }}
+                {% endif %}
+            </div>
+
+            <!-- Sockets -->
             <div class="form-group">
-                {{ form.sockets.label(class="form-control-label") }}
                 
                 {% if form.sockets.errors %}
                 {{ form.sockets(class="form-check is-invalid") }}
@@ -60,14 +59,13 @@
                     {% endfor %}
                 </div>
                 {% else %}
-                {{ form.sockets(class="form-sockets") }}
+                    {{ form.sockets(class="form-checkbox") }}
+                    {{ form.sockets.label(class="form-control-label") }}
                 {% endif %}
             </div>
             
-            <!-- language_speak form selectbox -->
+            <!-- Work-friendly-tables/chairs -->
             <div class="form-group">
-                {{ form.work_friendly_table.label(class="form-control-label") }}
-                
                 {% if form.work_friendly_table.errors %}
                 {{ form.work_friendly_table(class="form-check is-invalid") }}
                 <div class="invalid-feedback">
@@ -76,55 +74,53 @@
                     {% endfor %}
                 </div>
                 {% else %}
-                {{ form.work_friendly_table(class="form-work_friendly_table") }}
+                    {{ form.work_friendly_table(class="form-checkbox") }}
+                    {{ form.work_friendly_table.label(class="form-control-label") }}
                 {% endif %}
             </div>
             
-            <!-- Radio button for how long of experience -->
+            <!-- Teracce-->
             <div class="form-group">
-                {{ form.teracce.label(class="form-control-label") }}
-    
                 {% if form.teracce.errors %}
-                    {{ form.teracce(class="form-check is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.teracce.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
+                {{ form.teracce(class="form-check is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.teracce.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
                 {% else %}
-                    {{ form.teracce(class="form-radio",style="list-style-type:none") }}
+                    {{ form.teracce(class="form-checkbox") }}
+                    {{ form.teracce.label(class="form-control-label") }}
                 {% endif %}
             </div>
 
-            <!-- Radio button for how long of learning-->
+            <!-- Pet-friendly -->
             <div class="form-group">
-                {{ form.pet_friendly.label(class="form-control-label") }}
-    
                 {% if form.pet_friendly.errors %}
-                    {{ form.pet_friendly(class="form-check is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.pet_friendly.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
+                {{ form.pet_friendly(class="form-check is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.pet_friendly.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
                 {% else %}
-                    {{ form.pet_friendly(class="form-radio",style="list-style-type:none") }}
+                    {{ form.pet_friendly(class="form-checkbox") }}
+                    {{ form.pet_friendly.label(class="form-control-label") }}
                 {% endif %}
             </div>
 
-            <!-- Radio button for want to meet on online or in person-->
+            <!-- Quiet-->
             <div class="form-group">
-                {{ form.quiet.label(class="form-control-label") }}
-    
                 {% if form.quiet.errors %}
-                    {{ form.quiet(class="form-check is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.quiet.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
+                {{ form.quiet(class="form-check is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.quiet.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
                 {% else %}
-                    {{ form.quiet(class="form-radio",style="list-style-type:none") }}
+                    {{ form.quiet(class="form-checkbox") }}
+                    {{ form.quiet.label(class="form-control-label") }}
                 {% endif %}
             </div>
         </fieldset>

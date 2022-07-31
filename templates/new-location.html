@@ -1,6 +1,5 @@
 {% extends "layout.html" %}
 {% block head %}
-    <script src="{{ url_for('static', filename='new-location.js') }}"></script>
 {% endblock %}
 {% block body %}
     <button class="backToMain"><a href="{{ url_for('home') }}">Back to main</a></button>
@@ -19,7 +18,7 @@
             <!-- form はforms.pyのNewLocationFormクラスを指している。app.py でformとしてインスタンス化されている。 -->
             <!-- Radio button for Learner or Mentor -->
             <div class="form-group learner_or_mentor">
-                {{ form.learner_or_mentor.label(class="form-control-label") }}
+                {{ form.learner_or_mentor.label(class="form-control-label", id="learner_or_mentor_label") }}
 
                 {% if form.learner_or_mentor.errors %}
                     {{ form.learner_or_mentor(class="form-check is-invalid") }}
@@ -49,7 +48,7 @@
             </div>
             
             <!-- language_learn form selectbox -->
-            <div class="form-group">
+            <div class="form-group language_learn">
                 {{ form.language_learn.label(class="form-control-label") }}
                 
                 {% if form.language_learn.errors %}
@@ -65,7 +64,7 @@
             </div>
             
             <!-- language_speak form selectbox -->
-            <div class="form-group">
+            <div class="form-group language_speak ">
                 {{ form.language_speak.label(class="form-control-label") }}
                 
                 {% if form.language_speak.errors %}
@@ -81,7 +80,7 @@
             </div>
             
             <!-- Radio button for how long of experience -->
-            <div class="form-group">
+            <div class="form-group how_long_experienced">
                 {{ form.how_long_experienced.label(class="form-control-label") }}
     
                 {% if form.how_long_experienced.errors %}
@@ -97,7 +96,7 @@
             </div>
 
             <!-- Radio button for how long of learning-->
-            <div class="form-group">
+            <div class="form-group how_long_learning">
                 {{ form.how_long_learning.label(class="form-control-label") }}
     
                 {% if form.how_long_learning.errors %}
@@ -113,7 +112,7 @@
             </div>
 
             <!-- Radio button for want to meet on online or in person-->
-            <div class="form-group">
+            <div class="form-group online_inperson">
                 {{ form.online_inperson.label(class="form-control-label") }}
     
                 {% if form.online_inperson.errors %}
@@ -141,4 +140,6 @@
     src="https://maps.googleapis.com/maps/api/js?key={{map_key}}&callback=initAutocomplete&libraries=places&v=weekly&channel=2"
     async
     ></script>
+    <script src="{{ url_for('static', filename='new-location.js') }}"></script>
+
 {% endblock %}

@@ -128,8 +128,11 @@ function initMap() {
           this.containerDiv.style.display = display;
         }
       }
+      close(){
+        this.containerDiv.remove()
+      }
     }
-}
+  }
 
 var radiusToZoomLevel = [
   800000, // zoom: 0
@@ -324,31 +327,24 @@ function markerClick(marker) {
 
   console.log('Marker clicked');
   console.log(marker.profile);
-
+  
   // de-select the previously active marker, if present, マーカーがクリックされたら星マークアイコンになるようにする
   // selecetedMarker=nullなのでfalse
   let learner_or_mentor = marker.profile.learner_or_mentor
   if (learner_or_mentor === "Learner" || learner_or_mentor === "Mentor" ) {
     if (selectedMarker) {
       if(selectedMarker.profile.learner_or_mentor==='Learner' ){
-        console.log("Learner default")
         selectedMarker.setIcon(Learner_DEFAULT_ICON);
-        // return
-        console.log(selectedMarker)
       } 
       if(selectedMarker.profile.learner_or_mentor==='Mentor'){
-        console.log("mentor default")
         selectedMarker.setIcon(Mentor_DEFAULT_ICON);
-        console.log(selectedMarker)
       }
     } 
     
     if(learner_or_mentor==='Learner'){
-      console.log("learner selected")
       marker.setIcon(Learner_SELECTED_ICON)
     } 
     if (learner_or_mentor==='Mentor') {
-      console.log("Mentor selected")
       marker.setIcon(Mentor_SELECTED_ICON)
     }
      
@@ -377,11 +373,16 @@ function markerClick(marker) {
       <li>${selectedMarker.profile.language_learn}</li>
       <li>${selectedMarker.profile.language_speak}</li>
       <li>I want to chat ${selectedMarker.profile.online_inperson}</li>
-      </a>`
+      </a>
+      <button id="close_popup" type="button">X</button>`
     );
     selectedMarkerPopup.setMap(map);
     console.log(selectedMarker.profile)
-  } else {
+
+ 
+
+  } else {  // below for cafe info
+
     // remove the popup for the previously selected marker
     if (selectedMarkerPopup) {
       selectedMarkerPopup.setMap(null);
@@ -405,9 +406,25 @@ function markerClick(marker) {
       </a>`
     );
     selectedMarkerPopup.setMap(map);
-    console.log(selectedMarker.profile)
   }
 }
+
+
+const maps= document.getElementById('close_popup')
+maps.onclick = function(){
+  console.log('Hello');
+}
+// maps.addEventListener('click', function(){
+//   // let a = selectedMarkerPopup.containerDiv.textContent
+//   console.log(123)
+//     // selectedMarkerPopup.close()
+//     // selectedMarker.setIcon(Learner_DEFAULT_ICON)
+//   // if(a.indexOf('Learnrer'===!-1)){ // Learner
+//   //   selectedMarkerPopup.close()
+//   //   // marker.setIcon(Learner_DEFAULT_ICON);
+//   // }
+// })
+
 
 // this is just for debugging purposes!
 // To be able to better understand if the radius in which I search for 

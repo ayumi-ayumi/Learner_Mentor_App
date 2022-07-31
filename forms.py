@@ -32,11 +32,11 @@ class NewLocationForm(FlaskForm):
 
     options_language_learn = ['C++', 'C/C#','Python','Java', 'JavaScript', 'SQL', 'PHP', 'Ruby', 'Swift', 'Go', 'Kotlin', 'Scala', 'HTML&CSS', 'TypeScript', 'Rust', 'Objective-C']
     options_language_learn.sort()
-    language_learn = MultiCheckboxField('Which programming Language do you learn?', choices = options_language_learn)
+    language_learn = MultiCheckboxField('Which programming language are you learning/skilled?', choices = options_language_learn)
 
     options_language_speak=[ 'French', 'Spanish', 'English', 'Portuguese', 'Chinese', 'German','Hindi', 'Korean', 'Indonesian', 'Japanese', 'Russian', 'Arabic', 'Bengali', 'Italian']
     options_language_speak.sort()
-    language_speak = MultiCheckboxField('Which Language do you speak?', choices = options_language_speak)
+    language_speak = MultiCheckboxField('Which language do you speak?', choices = options_language_speak)
 
     how_long_experienced = RadioField('How long are you experienced?', validators=[DataRequired()], choices = ['Less than 1 year','1-2 years', '3-5 years', 'More than 5 years', 'Over 10 years'])
 
