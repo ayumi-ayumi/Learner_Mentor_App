@@ -93,11 +93,11 @@ function initMap() {
         bubbleAnchor.classList.add("popup-bubble-anchor");
         bubbleAnchor.appendChild(content);
         
-        const close_button= document.createElement('button')
-        close_button.type = 'button'
-        close_button.innerText = "X"
-        close_button.setAttribute('id', 'close_button')
-        content.appendChild(close_button)
+        // const close_button= document.createElement('button')
+        // close_button.type = 'button'
+        // close_button.innerText = "X"
+        // close_button.setAttribute('id', 'close_button')
+        // content.appendChild(close_button)
 
         // This zero-height div is positioned at the bottom of the tip.
         this.containerDiv = document.createElement("div");
@@ -385,27 +385,17 @@ function markerClick(marker) {
     );
     selectedMarkerPopup.setMap(map);
     console.log(selectedMarker.profile)
+
+    map.addListener('click',function(){
+      selectedMarkerPopup.setMap(null);
+      if(learner_or_mentor === "Learner"){
+        selectedMarker.setIcon(Learner_DEFAULT_ICON);
+      } 
+      if(learner_or_mentor === "Mentor"){
+        selectedMarker.setIcon(Mentor_DEFAULT_ICON);
+      }
+  });
     
-    // let el = document.getElementById('close_button')
-    // el.addEventListener('click', function(){
-    //   console.log(123)
-      // const close_button= document.createElement('button')
-
-      // const el = document.getElementById('close_button')
-      // console.log(el.innerHTML)
-      // close_button.type = 'button'
-      // close_button.innerText = "X"
-      // close_button.setAttribute('id', 'close_button')
-      // el.appendChild(close_button)
-      
-      // window.addEventListener('DOMContentLoaded', ()=>{
-      //   const a = document.getElementById('close_button')
-      //   console.log(a)
-      //   a.addEventListener('click', function(){
-      //     console.log(123)
-      //   })
-      // });
-
   } else {  // below for cafe info
 
     // remove the popup for the previously selected marker
@@ -431,6 +421,15 @@ function markerClick(marker) {
       </a>`
     );
     selectedMarkerPopup.setMap(map);
+
+
+    map.addListener('click',function(){
+      let cafe_quiet = selectedMarker.profile.quiet
+      selectedMarkerPopup.setMap(null);
+      if (cafe_quiet){
+        selectedMarker.setIcon(Cafe_ICON);
+      }
+    });
   }
 }
 
@@ -502,8 +501,5 @@ function dictToURI(dict) {
   }
   return str.join("&");
 }
-
-
-
 
 
