@@ -1,3 +1,4 @@
+from audioop import add
 from email.headerregistry import Address
 import os
 import sys
@@ -27,6 +28,7 @@ def create_app(test_config=None):
     # db_drop_and_create_all()
 
     @app.route('/', methods=['GET'])
+    @login_required
     def home():
         return render_template(
             'map.html', 
@@ -51,6 +53,7 @@ def create_app(test_config=None):
         if form.validate_on_submit():            
             latitude = float(form.coord_latitude.data)
             longitude = float(form.coord_longitude.data)
+            address = form.address.data
             # description = form.description.data
             learner_or_mentor = form.learner_or_mentor.data
             user_name = User.display_name
@@ -67,6 +70,7 @@ def create_app(test_config=None):
             location = SampleLocation(
                 # description=description,
                 geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude),
+                address=address,
                 learner_or_mentor=learner_or_mentor,
                 user_name=user_name,
                 language_learn=language_learn,
@@ -184,7 +188,7 @@ def create_app(test_config=None):
                 flash(f'Account created for: {form.username.data}!', 'success')
                 return redirect(url_for('home'))
             except IntegrityError as e:
-                flash(f'Could not register! The entered username or email might be already taken', 'danger')
+                flash(f'Could not sign up! The entered username or email might be already taken', 'danger')
                 print('IntegrityError when trying to store new user')
                 # db.session.rollback()
             
@@ -229,28 +233,20 @@ def create_app(test_config=None):
         if form.validate_on_submit():            
             # description = form.description.data
             address_cafe = form.address_cafe.data
+            # cafe_name = form.address_cafe.data
             latitude = float(form.coord_latitude.data)
             longitude = float(form.coord_longitude.data)
-            wifi = form.wifi.data
-            sockets = form.sockets.data
-            work_friendly_table = form.work_friendly_table.data
-            teracce = form.teracce.data
-            pet_friendly = form.pet_friendly.data
             user_name = User.display_name
-            quiet = form.quiet.data
-            
+            cafe_datail = list(form.cafe_datail.data)
+
 
             location = AddCafe(
                 # description=description,
                 address_cafe=address_cafe,
                 geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude),
-                wifi=wifi,
-                sockets=sockets,
-                work_friendly_table=work_friendly_table,
-                teracce=teracce,
-                pet_friendly = pet_friendly,
-                quiet=quiet,
-                user_name=user_name
+                cafe_datail=cafe_datail,
+                user_name=user_name,
+                # cafe_name=cafe_name
             )   
             location.user_id = current_user.id
             location.user_name = current_user.display_name

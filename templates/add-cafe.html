@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block head %}
-    <script src="{{ url_for('static', filename='add-cafe.js') }}"></script>
+    
 {% endblock %}
 {% block body %}
     <button  class="backToMain"><a href="{{ url_for('home') }}">Back to main</a></button>
@@ -33,96 +33,22 @@
                 {% endif %}
             </div>
             
-            <!-- Wifi -->
-            <div class="form-group wifi">
-                {% if form.wifi.errors %}
-                {{ form.wifi(class="form-check is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.wifi.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ form.wifi(class="form-checkbox") }}
-                {{ form.wifi.label(class="form-control-label wifi") }}
-                {% endif %}
-            </div>
-
-            <!-- Sockets -->
-            <div class="form-group">
+              <!-- Cafe datail form selectbox -->
+              <div class="form-group cafe-datail ">
+                {{ form.cafe_datail.label(class="form-control-label") }}
                 
-                {% if form.sockets.errors %}
-                {{ form.sockets(class="form-check is-invalid") }}
+                {% if form.cafe_datail.errors %}
+                {{ form.cafe_datail(class="form-check is-invalid") }}
                 <div class="invalid-feedback">
-                    {% for error in form.sockets.errors %}
+                    {% for error in form.cafe_datail.errors %}
                     <span>{{ error }}</span>
                     {% endfor %}
                 </div>
                 {% else %}
-                    {{ form.sockets(class="form-checkbox") }}
-                    {{ form.sockets.label(class="form-control-label") }}
-                {% endif %}
-            </div>
-            
-            <!-- Work-friendly-tables/chairs -->
-            <div class="form-group">
-                {% if form.work_friendly_table.errors %}
-                {{ form.work_friendly_table(class="form-check is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.work_friendly_table.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                    {{ form.work_friendly_table(class="form-checkbox") }}
-                    {{ form.work_friendly_table.label(class="form-control-label") }}
-                {% endif %}
-            </div>
-            
-            <!-- Teracce-->
-            <div class="form-group">
-                {% if form.teracce.errors %}
-                {{ form.teracce(class="form-check is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.teracce.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                    {{ form.teracce(class="form-checkbox") }}
-                    {{ form.teracce.label(class="form-control-label") }}
+                {{ form.cafe_datail(class="form-cafe_datail") }}
                 {% endif %}
             </div>
 
-            <!-- Pet-friendly -->
-            <div class="form-group">
-                {% if form.pet_friendly.errors %}
-                {{ form.pet_friendly(class="form-check is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.pet_friendly.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                    {{ form.pet_friendly(class="form-checkbox") }}
-                    {{ form.pet_friendly.label(class="form-control-label") }}
-                {% endif %}
-            </div>
-
-            <!-- Quiet-->
-            <div class="form-group">
-                {% if form.quiet.errors %}
-                {{ form.quiet(class="form-check is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.quiet.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                    {{ form.quiet(class="form-checkbox") }}
-                    {{ form.quiet.label(class="form-control-label") }}
-                {% endif %}
-            </div>
         </fieldset>
 
         <div id="preview" style="width: 100%; height: 400px">
@@ -138,4 +64,5 @@
     src="https://maps.googleapis.com/maps/api/js?key={{map_key}}&callback=initAutocomplete&libraries=places&v=weekly&channel=2"
     async
     ></script>
+    <script src="{{ url_for('static', filename='add-cafe.js') }}"></script>
 {% endblock %}

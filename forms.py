@@ -22,12 +22,10 @@ class NewLocationForm(FlaskForm):
     # username = StringField("Your name?", validators=[DataRequired(), Length(max=10)])
     # description = StringField('Location description', validators=[DataRequired(), Length(min=1, max=80)])
     # lookup_address = StringField('Search address')
-    learner_or_mentor = RadioField('Are you a learner or mentor?', validators=[DataRequired()], choices = ['Learner', 'Mentor'])
+    learner_or_mentor = RadioField('Are you a learner or mentor?', choices = ['Learner', 'Mentor'])
 
     address = StringField('Your address?',validators=[DataRequired()])
-
     coord_latitude = HiddenField('Latitude',validators=[DataRequired()])
-
     coord_longitude = HiddenField('Longitude', validators=[DataRequired()])       
 
     options_language_learn = ['C++', 'C/C#','Python','Java', 'JavaScript', 'SQL', 'PHP', 'Ruby', 'Swift', 'Go', 'Kotlin', 'Scala', 'HTML&CSS', 'TypeScript', 'Rust', 'Objective-C']
@@ -36,11 +34,11 @@ class NewLocationForm(FlaskForm):
 
     options_language_speak=[ 'French', 'Spanish', 'English', 'Portuguese', 'Chinese', 'German','Hindi', 'Korean', 'Indonesian', 'Japanese', 'Russian', 'Arabic', 'Bengali', 'Italian']
     options_language_speak.sort()
-    language_speak = MultiCheckboxField('Which language do you speak?', choices = options_language_speak)
+    language_speak = MultiCheckboxField('Which language do you speak?',choices = options_language_speak)
 
-    how_long_experienced = RadioField('How long are you experienced?', validators=[DataRequired()], choices = ['Less than 1 year','1-2 years', '3-5 years', 'More than 5 years', 'Over 10 years'])
+    how_long_experienced = RadioField('How long are you experienced?', choices = ['Less than 1 year','1-2 years', '3-5 years', 'More than 5 years', 'Over 10 years'])
 
-    how_long_learning = RadioField('How long have you learned?', validators=[DataRequired()], choices = ['Never','Less than 3 monts', '3-6 months', '6-12 months', 'Over 1 year'])
+    how_long_learning = RadioField('How long have you learned?', choices = ['Never','Less than 3 monts', '3-6 months', '6-12 months', 'Over 1 year'])
 
     online_inperson = MultiCheckboxField('Want to meet on online or in person?',choices = ['Online', 'In person'])
     
@@ -110,22 +108,12 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')    
 
 class AddCafeForm(FlaskForm):
-    # search cafe
     address_cafe = StringField('Which cafe do you want to add?',validators=[DataRequired()])
     coord_latitude = HiddenField('Latitude',validators=[DataRequired()])
     coord_longitude = HiddenField('Longitude', validators=[DataRequired()])       
 
-    # wifi
-    wifi = BooleanField('Wifi')
-    # sockets
-    sockets = BooleanField('Sockets')
-    # work-friendly tables
-    work_friendly_table = BooleanField('Work-friendly table/chair')
-    # teracce
-    teracce = BooleanField('Terrace')
-    # pet-friendly
-    pet_friendly = BooleanField('Pet-friendly')
-    # Quiet
-    quiet = BooleanField('Quiet')
+    cafe_datail_options = ['Wifi', 'Sockets','Work-friendly table/chair','Terrace', 'Pet-friendly', 'Quiet']
+    # cafe_datail.sort()
+    cafe_datail = MultiCheckboxField(choices = cafe_datail_options)
 
     submit = SubmitField('Create Location')

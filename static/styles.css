@@ -1,5 +1,7 @@
 body {
 font-family: 'Roboto Condensed', sans-serif;
+background-image: url(./background4.jpg);
+background-size: cover;
 }
 /* The popup bubble styling. */
 .popup-bubble {
@@ -9,18 +11,24 @@ font-family: 'Roboto Condensed', sans-serif;
   left: 0;
   transform: translate(-50%, -100%);
   /* Style the bubble. */
-  background-color: white;
+  background-color: #e4ecaf;
   padding: 5px;
   border-radius: 5px;
   font-family: sans-serif;
   overflow-y: auto;
   max-height: 160px;
   box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.9);
-  width: 302px;
+  max-width: 200px;
   /* height: 100px; */
   font-size: 16px;
 }
+.popup-bubble li {
+  list-style-type: none;
+  text-align: center;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 18px;
 
+}
 /* The parent of the bubble. A zero-height div at the top of the tip. */
 .popup-bubble-anchor {
   /* Position the div a fixed distance above the tip. */
@@ -44,7 +52,8 @@ font-family: 'Roboto Condensed', sans-serif;
   /* The tip is 8px high, and 12px wide. */
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-top: 8px solid white;
+  border-top: 8px solid #e4ecaf;
+
 }
 
 /* JavaScript will position this div at the bottom of the popup tip. */
@@ -60,13 +69,28 @@ font-family: 'Roboto Condensed', sans-serif;
 /* new-location.html */
 .backToMain {
   border-radius: 20px;
+  padding: 0;
+  text-decoration: none;
+  background-color: rgb(238, 237, 237);
+  width: 160px;
+}
+.backToMain a{
+  margin: 0;
+  display: inline-block;
+}
+.backToMain :hover{
+  text-decoration: none;
+  border-radius: 20px;
+
+  background-color: #dded78;
+  transition: 0.2s ease-in;
 }
 .form-group {
   margin: 0;
   text-align: center;
 }
 
-.form-group .language_learn{
+/* .form-group .language_learn{
   display: none;
 }
 .form-group .language_speak{
@@ -80,7 +104,9 @@ font-family: 'Roboto Condensed', sans-serif;
 }
 .form-group .online_inperson{
   display: none;
-}
+  max-width: 400px;
+  margin: 0 auto 20px;
+} */
 
 .form-group label {
   margin: 10px 0;
@@ -90,6 +116,7 @@ font-family: 'Roboto Condensed', sans-serif;
 .address {
   width: 80%;
   margin: 0 auto;
+  background-color: #ffffff9c;
 }
 .form-language_speak {
   width: 90%;
@@ -103,6 +130,7 @@ font-family: 'Roboto Condensed', sans-serif;
   font-size: 1rem;
   border-radius: 20px;
   background: #dde5eb;
+  border: 1px solid grey;
 }
 
 .form-language_learn {
@@ -117,6 +145,7 @@ font-family: 'Roboto Condensed', sans-serif;
   font-size: 1rem;
   border-radius: 20px;
   background: #dde5eb;
+  border: 1px solid grey;
 }
 
 .form-language_learn li input {
@@ -145,6 +174,7 @@ font-family: 'Roboto Condensed', sans-serif;
   background-color: #a1b91d;
   color: #fff;
   border-radius: 20px;
+  border: 1px solid grey;
 }
 .form-language_speak li input {
   display: none;
@@ -172,14 +202,15 @@ font-family: 'Roboto Condensed', sans-serif;
   background-color: #a1b91d;
   color: #fff;
   border-radius: 20px;
+  border: 1px solid grey;
 }
 
 .form-radio {
-  background-color: #fff;
+  background-color: #ffffff9c;
   display: block;
   position: relative;
   padding: 0;
-  max-width: 415px;
+  max-width: 400px;
   margin: 0 auto;
   font-size: 18px;
   font-weight: 500;
@@ -275,12 +306,25 @@ font-family: 'Roboto Condensed', sans-serif;
   border-radius: 10px;
   box-shadow: 3px 3px black;
 }
-/* .navbar .hover:hover {
-  background-color: #dded78;
-  border-radius: 50%;
-  transition: 0.2s;
-  transition: 0.2s ease-in;
-} */
+.navbar-brand {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.3rem;
+  /* font-family: 'Staatliches', cursive; */
+  /* font-family: 'Yeseva One', cursive; */
+}
+@media (min-width:992px) {
+  .navbar .hover:hover {
+    background-color: #dded78;
+    border-radius: 50%;
+    transition: 0.2s ease-in;
+  }
+}
+@media (max-width:991px) {
+  .navbar .hover:hover {
+    background-color: #dded78;
+    transition: 0.2s ease-in;
+  }
+}
 .map-tab {
   margin: 20px 0 10px 0;
   padding: 0;
@@ -292,12 +336,11 @@ font-family: 'Roboto Condensed', sans-serif;
 .map-tab .filter div{
   padding: 5px;
   display: inline-block;
-  /* height: 50px; */
-  /* font-size: 20px; */
   border: #3C454C 1px solid;
   border-radius: 10px;
   box-shadow: 3px 3px grey;
   transition:  0.2s;
+  background-color: rgb(238, 237, 237);
 }
 .map-tab .filter div:active {
   position: relative;
@@ -320,61 +363,95 @@ font-family: 'Roboto Condensed', sans-serif;
 } 
 
 /* add-cafe.html */
-.add-cafe input[type="checkbox"] {
-margin: 0;
-padding: 0;
-background: none;
-border: none;
-border-radius: 0;
-outline: none;
--webkit-appearance: none;
--moz-appearance: none;
-appearance: none;
-}
-
-.add-cafe input[type="checkbox"] {
-cursor: pointer;
-padding-left: 30px;/*label手前にチェックボックス用の余白を開ける*/
-vertical-align: middle;
-position: relative;
-
-}
-
-.add-cafe input[type="checkbox"]::before,
-.add-cafe input[type="checkbox"]::after {
-content: "";
-display: block; 
-position: absolute;
-}
-
-.add-cafe input[type="checkbox"]::before {
-background-color: #fff;
-border-radius: 0%;
-border: 1px solid #666464;
-width: 20px;/*チェックボックスの横幅*/
-height: 20px;/*チェックボックスの縦幅*/
-transform: translateY(-50%);
-top: 50%;
-left: 5px;
-}
-
-.add-cafe input[type="checkbox"]::after {
-border-bottom: 3px solid #666464;/*チェックの太さ*/
-border-left: 3px solid #666464;/*チェックの太さ*/
-opacity: 0;/*チェック前は非表示*/
-height: 6px;/*チェックの高さ*/
-width: 11px;/*チェックの横幅*/
-transform: rotate(-45deg);
-top: -3px;/*チェック時の位置調整*/
-left: 10px;/*チェック時の位置調整*/
-}
-
-.add-cafe input[type="checkbox"]:checked::after {
-opacity: 1;/*チェック後表示*/
-}
-
 #address_cafe {
 width: 70%;
 margin: 0 auto;
 }
 
+.form-cafe_datail {
+  width: 90%;
+  margin: 0 auto;
+  list-style-type: none;
+}
+
+.form-cafe_datail li{
+  display: inline-block;
+  margin: 0;
+  border-radius: 50px;
+  background: #dde5eb;
+}
+
+.form-cafe_datail li input {
+  display: none;
+}
+
+.form-cafe_datail li label {
+  /* margin: 15px 0; */
+  display: block;
+  float: left;
+  cursor: pointer;
+  width: 206px;
+  margin: 0;
+  height: 60px;
+  font-size: 20px;
+  text-align: center;
+  line-height: 60px;
+  transition: .2s ease-in;
+}
+
+.form-cafe_datail li input:checked + label {
+  background-color: #a1b91d;
+  color: #fff;
+  border-radius: 20px;
+}
+
+/* login.hyml */
+#container {
+  width: 50%;
+  margin: 100px auto;
+  border: 10px solid #dded78;
+  border-radius: 5px;
+  background-color: rgba(238, 237, 237, 0.591);
+}
+.content-section {
+  width: 90%;
+  margin: 0 auto;
+}
+.border-top {
+  width: 90%;
+  margin: 0 auto;
+}
+.text-muted {
+  width: 90%;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+#remember {
+  top: 16px;
+}
+
+/* detail.html */
+.detail_container #language_learn {
+  display: inline-block;
+}
+.detail_container #language_speak {
+  display: inline-block;
+}
+.detail_container #online_inperson  {
+  display: inline-block;
+}
+.detail_container {
+  max-width: 650px;
+  margin: 100px auto;
+  border: 10px double #dded78;
+  border-radius: 4px;
+  padding: 20px;
+  background-color: rgb(238, 237, 237);
+}
+.detail_container p {
+  border-bottom: 1px solid grey;
+}
+.detail_container span {
+  border-bottom: 1px solid grey;
+}

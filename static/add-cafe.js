@@ -29,12 +29,14 @@ function initAutocomplete() {
 
       // We take only the first place and ignore the (possible) rest
       let place = places[0];
+      console.log(place.name)
       console.log(place)
+
       if (!place.geometry || !place.geometry.location) {
         console.log("Returned place contains no geometry");
         return;
       }
-  
+      
       placeMarker(place.geometry.location);
     });
 
@@ -95,7 +97,3 @@ function updateFormCoordinates(newLat, newLng) {
     document.getElementById('coord_longitude').value = newLng;
 }  
 
-
-let learner_or_mentor = document.getElementsByClassName('learner_or_mentor')
-
-console.log(123)

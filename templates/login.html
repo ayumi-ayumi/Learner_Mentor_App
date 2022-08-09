@@ -6,7 +6,7 @@
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Login</legend>
-                <div class="form-group">
+                <div class="form-group login">
                     {{ form.username.label(class="form-control-label") }}    
                     {% if form.username.errors %}
                     {{ form.username(class="form-control form-control-lg is-invalid") }}
@@ -47,7 +47,7 @@
     </div>
     <div class="border-top pt-3">
         <small class="text-muted">
-            You do not have an account? <a class="ml-2" href="{{ url_for('register')}}">Register</a>
+            You do not have an account? <a class="ml-2" href="{{ url_for('register')}}">Sign up</a>
         </small>
     </div>
 </div>    

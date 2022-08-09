@@ -2,7 +2,7 @@ from datetime import datetime
 import os
 from typing import Text
 from xmlrpc.client import Boolean
-from flask_login import UserMixin
+from flask_login import UserMixin, user_needs_refresh
 from sqlalchemy import ARRAY, BOOLEAN, Column, String, Integer
 from flask_sqlalchemy import SQLAlchemy
 from geoalchemy2.types import Geometry
@@ -54,43 +54,65 @@ def insert_sample_locations():
     admin_user.insert()
     
     loc1 = SampleLocation(
+        user_name = 'Koko',
         geom=SampleLocation.point_representation(
             latitude=52.516247, 
             longitude=13.377711
         ),
+        address='Pariser Platz, 10117 Berlin',
         learner_or_mentor='Learner',
         language_learn = ['C++', 'C/C#','Python','Java', 'JavaScript'],
-        language_speak = ['French', 'Spanish', 'English']
+        language_speak = ['French', 'Spanish', 'English'],
+        how_long_learning = 'Never',
+        online_inperson = ['In person']
     )
     loc1.user = admin_user
     loc1.insert()
 
     loc2 = SampleLocation(
+        user_name = 'Paul',
         geom=SampleLocation.point_representation(
             latitude=52.520608, 
             longitude=13.295581
         ),
-        learner_or_mentor='Mentor'
+        address="Spandauer Damm 10-22, 14059 Berlin",
+        learner_or_mentor='Mentor',
+        language_learn = ['Rust', 'Objective-C'],
+        language_speak = ['Korean', 'Indonesian', 'Japanese'],
+        how_long_experienced = 'Over 10 years',
+        online_inperson = ['Onlince','In person']
     )
     loc2.user = admin_user
     loc2.insert()
 
     loc3 = SampleLocation(
+        user_name = 'Ema',
         geom=SampleLocation.point_representation(
             latitude=52.473580, 
             longitude=13.405252
         ),
-        learner_or_mentor='Learner'
+        address='Tempelhofer Damm, 12101 Berlin',
+        learner_or_mentor='Learner',
+        language_learn = ['Scala', 'HTML&CSS'],
+        language_speak = ['Bengali', 'Italian'],
+        how_long_learning = 'Never',
+        online_inperson = ['In person']
     )
     loc3.user = admin_user
     loc3.insert()
 
     loc4 = SampleLocation(
+        user_name = 'Ben',
         geom=SampleLocation.point_representation(
             latitude=52.5220, 
             longitude=13.4133
         ),
-        learner_or_mentor='Mentor'
+        address='10178 Berlin',
+        learner_or_mentor='Mentor',
+        language_learn = ['PHP', 'Ruby', 'Swift', 'Go'],
+        language_speak = ['German','Hindi', 'Korean', 'Indonesian', 'Japanese'],
+        how_long_experienced = 'Over 10 years',
+        online_inperson = ['Onlince','In person']
     )
     loc4.user = admin_user
     loc4.insert()
@@ -105,6 +127,7 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
     #column in a table, primary key is an attribute that identifies the row of the respective table
     # description = Column(String(80)) #second column
     geom = Column(Geometry(geometry_type='POINT', srid=SpatialConstants.SRID))  
+    address = Column(String)
     learner_or_mentor = Column(String)
     user_name = Column(String)
     language_learn = Column(ARRAY(String))
@@ -163,7 +186,7 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
                 'lat': self.get_location_latitude()
             },
             'learner_or_mentor' : self.learner_or_mentor,
-            # 'address': self.address
+            'address': self.address,
             # 'user_name': User.display_name, 
             # 'user_name': User.query.get(id),
             'user_name': self.user_name,
@@ -227,12 +250,8 @@ class AddCafe(db.Model):
     id = Column(Integer, primary_key=True) 
     geom = Column(Geometry(geometry_type='POINT', srid=SpatialConstants.SRID))  
     address_cafe = Column(String)
-    wifi = Column(BOOLEAN)
-    sockets = Column(BOOLEAN)
-    work_friendly_table = Column(BOOLEAN)
-    teracce = Column(BOOLEAN)
-    pet_friendly = Column(BOOLEAN)
-    quiet = Column(BOOLEAN)
+    # cafe_name = Column(String)
+    cafe_datail=Column(ARRAY(String))
     user_name = Column(String)
     
     user_id = Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
@@ -269,22 +288,16 @@ class AddCafe(db.Model):
         return point.x  
 
     def to_dict(self):
-        # user_name = User.display_name
-
         return {
             # 'description': self.description,
             'id': self.id,
             'address_cafe': self.address_cafe,
+            # 'cafe_name': self.cafe_name.name,
             'location': {
                 'lng': self.get_location_longitude(),
                 'lat': self.get_location_latitude()
             },
-            'wifi' : self.wifi,
-            'sockets': self.sockets,
-            'work_friendly_table': self.work_friendly_table,
-            'teracce': self.teracce,
-            'pet_friendly': self.pet_friendly,
-            'quiet': self.quiet,
+            'cafe_detail': self.cafe_datail,
             'user_name': self.user_name,
         }    
 

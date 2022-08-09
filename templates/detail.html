@@ -1,7 +1,28 @@
 {% extends "layout.html" %}
 {% block body %}
-    <p>I am {{item.how_long_experienced}}</p>
-    <p></p>
-    Sample location description: {{item.user_id}}<br/>
-    Created by: {{item.user.full_name}}
+<div class="detail_container">
+    <p>I am {{item.user_name}} and {{item.learner_or_mentor}}</p>
+    <p>living in {{item.address}}</p>
+    <div>
+        <p id="language_learn">I am learning/skilled</p>
+        {% for i in item.language_learn %}
+            <span>{{i}}</span>
+        {% endfor %}
+    </div>
+    <div>
+        <p id="language_speak">I speak</p>
+        {% for i in item.language_speak %}
+            <span>{{i}}</span>
+        {% endfor %}
+    </div>
+    <p>I have been experienced {{item.how_long_experienced}}</p>
+    <p>I have been learning {{item.how_long_learning}}</p>
+    <div>
+        <p id="online_inperson">I want to chat </p>
+        {% for i in item.online_inperson %}
+            <span>{{i}}</span>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}

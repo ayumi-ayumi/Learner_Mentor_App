@@ -5,7 +5,7 @@
 {% endblock %}
 {% block body %}
   <nav class="navbar navbar-expand-lg navbar-light">
-    <span class="navbar-brand mb-0 h1">Navbar</span>
+    <span class="navbar-brand mb-0 h1">Learner or Mentor</span>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>    
@@ -22,16 +22,16 @@
           <a class="nav-link hover" href="{{ url_for('add_cafe') }}">+ CAFE</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link hover" href="{{ url_for('logout') }}">Logout</a>
+          <a class="nav-link hover" href="{{ url_for('login') }}">Logout</a>
         </li>      
       </ul>    
       {% else %}
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+          <a class="nav-link hover" href="{{ url_for('login') }}">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('register') }}">New User Registration</a>
+          <a class="nav-link hover" href="{{ url_for('register') }}">Sign up</a>
         </li>
       </ul>     
       {% endif %}

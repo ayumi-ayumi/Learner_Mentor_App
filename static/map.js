@@ -197,9 +197,7 @@ function refreshMarkers(mapCenter, zoomLevel) {
       }  
       
       // place new markers in the map
-      // placeItemsInMap(response_JSON.results_cafe)
       placeItemsInMap(response_JSON.results)
-      // markers = response_JSON.results.concat(response_JSON.results_cafe)
       // console.log(markers)
     });
   }
@@ -228,6 +226,7 @@ function refreshMarkers(mapCenter, zoomLevel) {
       //we can get all the item data to fill the highlighted profile box under
       // the map 
       marker.profile = item;
+      console.log(item)
       
       google.maps.event.addListener(marker, 'click', function(evt) {
         markerClick(this);
@@ -255,15 +254,15 @@ function showAllMarkers() {
 let filter_learner_marker = document.getElementById('filter_learner_marker')
 filter_learner_marker.addEventListener('click', hide_mentor_Markers)
 
-function hide_mentor_Markers() {
+function hide_mentor_Markers() { // hide_mentor_cafe_Markers
   if (markers) {
     console.log(markers)
     markers.map(function(marker, i) {
       let learner_or_marker = marker.profile.learner_or_mentor 
-      let cafe_quiet = marker.profile.quiet 
+      let cafe_detail = marker.profile.cafe_detail 
       // let cafe_marker = marker.profile.pet_friendly 
       // if (typeof(cafe_marker) === Boolean)  {
-        if (learner_or_marker === 'Mentor' || typeof(cafe_quiet) === "boolean") 
+        if (learner_or_marker === 'Mentor' || typeof(cafe_detail) === "object") 
         marker.setVisible(false);
       });
     }
@@ -277,8 +276,8 @@ function hide_learner_Markers() {
   if (markers) {
     markers.map(function(marker, i) {
       let learner_or_marker = marker.profile.learner_or_mentor 
-      let cafe_quiet = marker.profile.quiet 
-      if (learner_or_marker === 'Learner' || typeof(cafe_quiet) === "boolean")
+      let cafe_detail = marker.profile.cafe_detail 
+      if (learner_or_marker === 'Learner' || typeof(cafe_detail) === "object")
       marker.setVisible(false);
     });
   }
@@ -372,20 +371,19 @@ function markerClick(marker) {
     selectedMarker = marker;
   
     // Show popup for the clicked marker
-    
     selectedMarkerPopup = new Popup(
       selectedMarker.position,
       `<a href='/detail?id=${selectedMarker.profile.id}'>
       <li>${selectedMarker.profile.user_name}</li>
-      <li>${selectedMarker.profile.learner_or_mentor}</li>
-      <li>${selectedMarker.profile.language_learn}</li>
-      <li>${selectedMarker.profile.language_speak}</li>
-      <li>I want to chat ${selectedMarker.profile.online_inperson}</li>
       </a>`
     );
     selectedMarkerPopup.setMap(map);
-    console.log(selectedMarker.profile)
 
+      // <li>${selectedMarker.profile.learner_or_mentor}</li>
+      // <li>${selectedMarker.profile.language_learn}</li>
+      // <li>${selectedMarker.profile.language_speak}</li>
+      // <li>I want to chat ${selectedMarker.profile.online_inperson}</li>
+      
     map.addListener('click',function(){
       selectedMarkerPopup.setMap(null);
       if(learner_or_mentor === "Learner"){
@@ -405,23 +403,20 @@ function markerClick(marker) {
     
     // update selected marker reference。クリックしたアイコンの前のアイコンにmakerを設定
     selectedMarker = marker;
-  
+    console.log(selectedMarker)
+
     // Show popup for the clicked marker
-    
     selectedMarkerPopup = new Popup(
       selectedMarker.position,
-      `<a href='/detail?id=${selectedMarker.profile.id}'>
-      <li>${selectedMarker.profile.address_cafe}</li>
-      <li>Wifi: ${selectedMarker.profile.wifi}</li>
-      <li>Sockets: ${selectedMarker.profile.sockets}</li>
-      <li>Work-friendly tables/chairs: ${selectedMarker.profile.work_friendly_table}</li>
-      <li>Teracce: ${selectedMarker.profile.teracce}</li>
-      <li>Pet-friendly: ${selectedMarker.profile.pet_friendly}</li>
-      <li>Quiet: ${selectedMarker.profile.quiet}</li>
-      </a>`
-    );
-    selectedMarkerPopup.setMap(map);
-
+      `
+      <li style=display:block">${selectedMarker.profile.address_cafe}</li>
+      <li style=display:block"> ${selectedMarker.profile.cafe_detail}</li>
+      `
+      );
+      selectedMarkerPopup.setMap(map);
+      console.log(selectedMarker)
+      
+      // `<a href='/detail?id=${selectedMarker.profile.id}'></a>
 
     map.addListener('click',function(){
       let cafe_quiet = selectedMarker.profile.quiet
