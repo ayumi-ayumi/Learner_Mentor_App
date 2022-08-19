@@ -255,6 +255,7 @@ let filter_learner_marker = document.getElementById('filter_learner_marker')
 filter_learner_marker.addEventListener('click', hide_mentor_Markers)
 
 function hide_mentor_Markers() { // hide_mentor_cafe_Markers
+  showAllMarkers();
   if (markers) {
     console.log(markers)
     markers.map(function(marker, i) {
@@ -273,6 +274,7 @@ let filter_mentor_marker = document.getElementById('filter_mentor_marker')
 filter_mentor_marker.addEventListener('click', hide_learner_Markers)
 
 function hide_learner_Markers() {
+  showAllMarkers();
   if (markers) {
     markers.map(function(marker, i) {
       let learner_or_marker = marker.profile.learner_or_mentor 
@@ -288,6 +290,7 @@ let filter_cafe_marker = document.getElementById('filter_cafe_marker')
 filter_cafe_marker.addEventListener('click', hide_learner_Mentor_Markers)
 
 function hide_learner_Mentor_Markers() {
+  showAllMarkers();
   if (markers) {
     markers.map(function(marker, i) {
       let learner_or_marker = marker.profile.learner_or_mentor 

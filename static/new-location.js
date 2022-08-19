@@ -103,46 +103,51 @@ function updateFormCoordinates(newLat, newLng) {
 }  
 
 // depends on clicking learner/mentor, showing different questionaires
-// const learner = document.getElementById('learner_or_mentor-0')
-// const mentor = document.getElementById('learner_or_mentor-1')
-// const language_learn = document.getElementsByClassName('language_learn')
-// const language_speak = document.getElementsByClassName('language_speak')
-// const how_long_experienced = document.getElementsByClassName('how_long_experienced')
-// const how_long_learning = document.getElementsByClassName('how_long_learning')
-// const online_inperson = document.getElementsByClassName('online_inperson')
+const learner = document.getElementById('learner_or_mentor-0')
+const mentor = document.getElementById('learner_or_mentor-1')
+const language_learn = document.getElementsByClassName('language_learn')
+const language_skilled = document.getElementsByClassName('language_skilled')
+const language_speak = document.getElementsByClassName('language_speak')
+const how_long_experienced = document.getElementsByClassName('how_long_experienced')
+const how_long_learning = document.getElementsByClassName('how_long_learning')
+const online_inperson = document.getElementsByClassName('online_inperson')
 
-// learner.addEventListener('click', show_for_learner)
-// mentor.addEventListener('click', show_for_mentor)
+learner.addEventListener('click', show_for_learner)
+mentor.addEventListener('click', show_for_mentor)
 
-// function show_for_learner() {
-//   if(learner.checked) {
-//     console.log(12)
-//     language_learn[0].style.display ="block";
-//     language_speak[0].style.display ="block";
-//     // how_long_experienced[0].style.display ="block";
-//     how_long_learning[0].style.display ="block";
-//     online_inperson[0].style.display ="block";
-//   } else {
-//     language_learn[0].style.display ="none";
-//     language_speak[0].style.display ="none";
-//     // how_long_experienced[0].style.display ="none";
-//     how_long_learning[0].style.display ="none";
-//     online_inperson[0].style.display ="none";
-//     }
-// }
+function show_for_learner() {
+  if(learner.checked) {
+    console.log(12)
+    language_learn[0].style.display ="block";
+    language_skilled[0].style.display ="block";
+    language_speak[0].style.display ="block";
+    // how_long_experienced[0].style.display ="block";
+    how_long_learning[0].style.display ="block";
+    online_inperson[0].style.display ="block";
+  } else {
+    language_learn[0].style.display ="none";
+    language_skilled[0].style.display ="none";
+    language_speak[0].style.display ="none";
+    // how_long_experienced[0].style.display ="none";
+    how_long_learning[0].style.display ="none";
+    online_inperson[0].style.display ="none";
+    }
+}
 
-// function show_for_mentor() {
-//   if(mentor.checked) {
-//     language_learn[0].style.display ="block";
-//     language_speak[0].style.display ="block";
-//     how_long_experienced[0].style.display ="block";
-//     // how_long_learning[0].style.display ="block";
-//     online_inperson[0].style.display ="block";
-//   } else {
-//     language_learn[0].style.display ="none";
-//     language_speak[0].style.display ="none";
-//     how_long_experienced[0].style.display ="none";
-//     // how_long_learning[0].style.display ="none";
-//     online_inperson[0].style.display ="none";
-//     }
-// }
+function show_for_mentor() {
+  if(mentor.checked) {
+    // language_learn[0].style.display ="block";
+    language_skilled[0].style.display ="block";
+    language_speak[0].style.display ="block";
+    how_long_experienced[0].style.display ="block";
+    // how_long_learning[0].style.display ="block";
+    online_inperson[0].style.display ="block";
+  } else {
+    language_learn[0].style.display ="none";
+    language_skilled[0].style.display ="none";
+    language_speak[0].style.display ="none";
+    how_long_experienced[0].style.display ="none";
+    // how_long_learning[0].style.display ="none";
+    online_inperson[0].style.display ="none";
+    }
+}

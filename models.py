@@ -62,6 +62,7 @@ def insert_sample_locations():
         address='Pariser Platz, 10117 Berlin',
         learner_or_mentor='Learner',
         language_learn = ['C++', 'C/C#','Python','Java', 'JavaScript'],
+        language_skilled =  ['C++', 'C/C#','Python','Java', 'JavaScript'],
         language_speak = ['French', 'Spanish', 'English'],
         how_long_learning = 'Never',
         online_inperson = ['In person']
@@ -78,6 +79,7 @@ def insert_sample_locations():
         address="Spandauer Damm 10-22, 14059 Berlin",
         learner_or_mentor='Mentor',
         language_learn = ['Rust', 'Objective-C'],
+        language_skilled = ['Rust', 'Objective-C'],
         language_speak = ['Korean', 'Indonesian', 'Japanese'],
         how_long_experienced = 'Over 10 years',
         online_inperson = ['Onlince','In person']
@@ -94,6 +96,7 @@ def insert_sample_locations():
         address='Tempelhofer Damm, 12101 Berlin',
         learner_or_mentor='Learner',
         language_learn = ['Scala', 'HTML&CSS'],
+        language_skilled = ['Scala', 'HTML&CSS'],
         language_speak = ['Bengali', 'Italian'],
         how_long_learning = 'Never',
         online_inperson = ['In person']
@@ -110,6 +113,7 @@ def insert_sample_locations():
         address='10178 Berlin',
         learner_or_mentor='Mentor',
         language_learn = ['PHP', 'Ruby', 'Swift', 'Go'],
+        language_skilled = ['PHP', 'Ruby', 'Swift', 'Go'],
         language_speak = ['German','Hindi', 'Korean', 'Indonesian', 'Japanese'],
         how_long_experienced = 'Over 10 years',
         online_inperson = ['Onlince','In person']
@@ -131,6 +135,7 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
     learner_or_mentor = Column(String)
     user_name = Column(String)
     language_learn = Column(ARRAY(String))
+    language_skilled = Column(ARRAY(String))
     language_speak = Column(ARRAY(String))
     how_long_experienced = Column(String)
     how_long_learning = Column(String)
@@ -191,6 +196,7 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
             # 'user_name': User.query.get(id),
             'user_name': self.user_name,
             'language_learn': self.language_learn,
+            'language_skilled': self.language_skilled,
             'language_speak': self.language_speak,
             'how_long_experienced': self.how_long_experienced,
             'how_long_learning': self.how_long_learning,

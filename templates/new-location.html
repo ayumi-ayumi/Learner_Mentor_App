@@ -63,8 +63,24 @@
                 {% endif %}
             </div>
             
+            <!-- language_skilled form selectbox -->
+            <div class="form-group language_skilled">
+                {{ form.language_skilled.label(class="form-control-label") }}
+                
+                {% if form.language_skilled.errors %}
+                {{ form.language_skilled(class="form-check is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.language_skilled.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.language_skilled(class="form-language_skilled") }}
+                {% endif %}
+            </div>
+
             <!-- language_speak form selectbox -->
-            <div class="form-group language_speak ">
+            <div class="form-group language_speak">
                 {{ form.language_speak.label(class="form-control-label") }}
                 
                 {% if form.language_speak.errors %}

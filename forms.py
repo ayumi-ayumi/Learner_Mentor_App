@@ -28,9 +28,10 @@ class NewLocationForm(FlaskForm):
     coord_latitude = HiddenField('Latitude',validators=[DataRequired()])
     coord_longitude = HiddenField('Longitude', validators=[DataRequired()])       
 
-    options_language_learn = ['C++', 'C/C#','Python','Java', 'JavaScript', 'SQL', 'PHP', 'Ruby', 'Swift', 'Go', 'Kotlin', 'Scala', 'HTML&CSS', 'TypeScript', 'Rust', 'Objective-C']
-    options_language_learn.sort()
-    language_learn = MultiCheckboxField('Which programming language are you learning/skilled?', choices = options_language_learn)
+    options_programming_language = ['C++', 'C/C#','Python','Java', 'JavaScript', 'SQL', 'PHP', 'Ruby', 'Swift', 'Go', 'Kotlin', 'Scala', 'HTML&CSS', 'TypeScript', 'Rust', 'Objective-C']
+    options_programming_language.sort()
+    language_learn = MultiCheckboxField('Which programming language are you learning?', choices = options_programming_language)
+    language_skilled = MultiCheckboxField('Which programming language are you skilled?', choices = options_programming_language)
 
     options_language_speak=[ 'French', 'Spanish', 'English', 'Portuguese', 'Chinese', 'German','Hindi', 'Korean', 'Indonesian', 'Japanese', 'Russian', 'Arabic', 'Bengali', 'Italian']
     options_language_speak.sort()

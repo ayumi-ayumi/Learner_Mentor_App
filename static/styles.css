@@ -1,7 +1,10 @@
 body {
 font-family: 'Roboto Condensed', sans-serif;
-background-image: url(./background4.jpg);
+/* background-image: url(./cool.png);
 background-size: cover;
+background-repeat: no-repeat; */
+background: rgb(117,213,138);
+background: linear-gradient(38deg, rgba(117,213,138,1) 0%, rgba(250,241,165,0.8673844537815126) 100%);
 }
 /* The popup bubble styling. */
 .popup-bubble {
@@ -86,11 +89,14 @@ background-size: cover;
   transition: 0.2s ease-in;
 }
 .form-group {
-  margin: 0;
+  /* margin: 0; */
   text-align: center;
 }
 
-/* .form-group .language_learn{
+.form-group .language_learn{
+  display: none;
+}
+.form-group .language_skilled{
   display: none;
 }
 .form-group .language_speak{
@@ -106,7 +112,7 @@ background-size: cover;
   display: none;
   max-width: 400px;
   margin: 0 auto 20px;
-} */
+}
 
 .form-group label {
   margin: 10px 0;
@@ -133,13 +139,13 @@ background-size: cover;
   border: 1px solid grey;
 }
 
-.form-language_learn {
+.form-language_learn, .form-language_skilled {
   width: 90%;
   margin: 0 auto;
   list-style-type: none;
 }
 
-.form-language_learn li{
+.form-language_learn li, .form-language_skilled li{
   display: inline-block;
   margin: 0;
   font-size: 1rem;
@@ -148,11 +154,11 @@ background-size: cover;
   border: 1px solid grey;
 }
 
-.form-language_learn li input {
+.form-language_learn li input, .form-language_skilled li input {
   display: none;
 }
 
-.form-language_learn li label {
+.form-language_learn li label, .form-language_skilled li label {
   margin: 15px 0;
   display: block;
   float: left;
@@ -169,17 +175,17 @@ background-size: cover;
   transition: .2s;
 }
 
-.form-language_learn li input:checked + label {
+.form-language_learn li input:checked + label, .form-language_skilled li input:checked + label {
   /* margin: 15px 0; */
   background-color: #a1b91d;
   color: #fff;
   border-radius: 20px;
   border: 1px solid grey;
 }
+
 .form-language_speak li input {
   display: none;
 }
-
 .form-language_speak li label {
   margin: 15px 0;
   display: block;
