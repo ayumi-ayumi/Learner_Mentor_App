@@ -1,3 +1,4 @@
+from logging import PlaceHolder
 import unicodedata
 from wsgiref.validate import validator
 from country_list import available_languages, countries_for_language
@@ -27,6 +28,8 @@ class NewLocationForm(FlaskForm):
     address = StringField('Your address?',validators=[DataRequired()])
     coord_latitude = HiddenField('Latitude',validators=[DataRequired()])
     coord_longitude = HiddenField('Longitude', validators=[DataRequired()])       
+
+    job_title = StringField('I am a', render_kw={'placeholder':'Frontend developer'})
 
     options_programming_language = ['C++', 'C/C#','Python','Java', 'JavaScript', 'SQL', 'PHP', 'Ruby', 'Swift', 'Go', 'Kotlin', 'Scala', 'HTML&CSS', 'TypeScript', 'Rust', 'Objective-C']
     options_programming_language.sort()

@@ -32,8 +32,23 @@
                 {% endif %}
             </div>
 
+            <!-- Job title form -->
+            <div class="form-group job_title">
+                {{ form.job_title.label(class="form-control-label") }}
+                {% if form.job_title.errors %}
+                    {{ form.job_title(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.job_title.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.job_title(class="form-control job_title form-control-lg") }}
+                {% endif %}
+            </div>
+
             <!-- Address form -->
-            <div class="form-group">
+            <div class="form-group address">
                 {{ form.address.label(class="form-control-label") }}
                 {% if form.address.errors %}
                     {{ form.address(class="form-control form-control-lg is-invalid") }}

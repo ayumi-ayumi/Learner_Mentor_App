@@ -133,6 +133,7 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
     geom = Column(Geometry(geometry_type='POINT', srid=SpatialConstants.SRID))  
     address = Column(String)
     learner_or_mentor = Column(String)
+    job_title = Column(String)
     user_name = Column(String)
     language_learn = Column(ARRAY(String))
     language_skilled = Column(ARRAY(String))
@@ -194,6 +195,7 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
             'address': self.address,
             # 'user_name': User.display_name, 
             # 'user_name': User.query.get(id),
+            'job_title': self.job_title,
             'user_name': self.user_name,
             'language_learn': self.language_learn,
             'language_skilled': self.language_skilled,

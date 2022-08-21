@@ -186,18 +186,19 @@ function refreshMarkers(mapCenter, zoomLevel) {
     "radius" : radiusToZoomLevel[zoomLevel]
   }
   var url = "/api/get_items_in_radius?" + dictToURI(params) 
+
   loadJSON(url, function(response) {
     // Parse JSON string into object
-      var response_JSON = JSON.parse(response);
-      console.log(response_JSON);
-      if (!response_JSON.success) {
-        // something failed in the backed serching for the items
-        console.log("/api/get_items_in_radius call FAILED!")
-        return
-      }  
-      
-      // place new markers in the map
-      placeItemsInMap(response_JSON.results)
+    var response_JSON = JSON.parse(response);
+    console.log(response_JSON);
+    if (!response_JSON.success) {
+      // something failed in the backed serching for the items
+      console.log("/api/get_items_in_radius call FAILED!")
+      return
+    }  
+    
+    // place new markers in the map
+    placeItemsInMap(response_JSON.results)
       // console.log(markers)
     });
   }
@@ -490,6 +491,8 @@ function loadJSON(url, callback) {
         //TODO: what to do in case of failures?
   };
   xobj.send(null);  
+  console.log(123)
+  
 }
 
 function dictToURI(dict) {

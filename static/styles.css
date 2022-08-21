@@ -93,6 +93,9 @@ background: linear-gradient(38deg, rgba(117,213,138,1) 0%, rgba(250,241,165,0.86
   text-align: center;
 }
 
+.form-group .job_title {
+  display: none;
+}
 .form-group .language_learn{
   display: none;
 }
@@ -114,16 +117,26 @@ background: linear-gradient(38deg, rgba(117,213,138,1) 0%, rgba(250,241,165,0.86
   margin: 0 auto 20px;
 }
 
+.form-group.job_title, .form-group.address {
+  /* margin: 10px 100px; */
+  width: 80%;
+  margin: 10px auto;
+}
+
 .form-group label {
   margin: 10px 0;
   font-size: 22px;
+  display: inline;
 }
 
-.address {
+.form-control.job_title, .form-control.address {
   width: 80%;
   margin: 0 auto;
   background-color: #ffffff9c;
+  display: inline;
 }
+
+
 .form-language_speak {
   width: 90%;
   margin: 0 auto;
@@ -221,6 +234,7 @@ background: linear-gradient(38deg, rgba(117,213,138,1) 0%, rgba(250,241,165,0.86
   font-size: 18px;
   font-weight: 500;
   line-height: 30px;
+  border-radius: 5px;
 }
 
 .form-radio li label {
@@ -276,7 +290,8 @@ background: linear-gradient(38deg, rgba(117,213,138,1) 0%, rgba(250,241,165,0.86
 
 .form-radio li input:checked ~ label {
   margin: 0;
-  color: #fff
+  color: #fff;
+  border-radius: 5px;
 }
 
 .form-radio li input:checked ~ label:before {
