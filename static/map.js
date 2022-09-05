@@ -209,7 +209,6 @@ function refreshMarkers(mapCenter, zoomLevel) {
     // create an array of markers based on the given "items" array.
     // The map() method here has nothing to do with the Google Maps API.
     markers = items.map(function(item, i) {
-      console.log(markers)
       var marker = new google.maps.Marker({
         map: map,
         position: item.location
@@ -405,11 +404,11 @@ function markerClick(marker) {
       selectedMarkerPopup.setMap(null);
     }
     
-    // update selected marker reference。クリックしたアイコンの前のアイコンにmakerを設定
+    // update selected marker reference. クリックしたアイコンの前のアイコンにmakerを設定
     selectedMarker = marker;
     console.log(selectedMarker)
 
-    // Show popup for the clicked marker
+    // Show popup for the clicked marker for cafe
     selectedMarkerPopup = new Popup(
       selectedMarker.position,
       `
@@ -418,7 +417,7 @@ function markerClick(marker) {
       `
       );
       selectedMarkerPopup.setMap(map);
-      console.log(selectedMarker)
+      console.log(selectedMarker.profile)
       
       // `<a href='/detail?id=${selectedMarker.profile.id}'></a>
 

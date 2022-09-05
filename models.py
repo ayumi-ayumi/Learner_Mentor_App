@@ -60,6 +60,7 @@ def insert_sample_locations():
             longitude=13.377711
         ),
         address='Pariser Platz, 10117 Berlin',
+        job_title='Frontend developer',
         learner_or_mentor='Learner',
         language_learn = ['C++', 'C/C#','Python','Java', 'JavaScript'],
         language_skilled =  ['C++', 'C/C#','Python','Java', 'JavaScript'],
@@ -77,6 +78,7 @@ def insert_sample_locations():
             longitude=13.295581
         ),
         address="Spandauer Damm 10-22, 14059 Berlin",
+        job_title='Frontend developer',
         learner_or_mentor='Mentor',
         language_learn = ['Rust', 'Objective-C'],
         language_skilled = ['Rust', 'Objective-C'],
@@ -94,6 +96,7 @@ def insert_sample_locations():
             longitude=13.405252
         ),
         address='Tempelhofer Damm, 12101 Berlin',
+        job_title='Frontend developer',
         learner_or_mentor='Learner',
         language_learn = ['Scala', 'HTML&CSS'],
         language_skilled = ['Scala', 'HTML&CSS'],
@@ -111,6 +114,7 @@ def insert_sample_locations():
             longitude=13.4133
         ),
         address='10178 Berlin',
+        job_title='Frontend developer',
         learner_or_mentor='Mentor',
         language_learn = ['PHP', 'Ruby', 'Swift', 'Go'],
         language_skilled = ['PHP', 'Ruby', 'Swift', 'Go'],
@@ -143,10 +147,6 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
     online_inperson = Column(ARRAY(String))
     
     user_id = Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    # user_name = Column(db.String, db.ForeignKey('users.display_name'))
-
-    # userr = db.relationship('User', foreign_keys=[user_id])
-    # user_namee = db.relationship('User', foreign_keys=[user_name])
 
     # many to one side of the relationship of SampleLocation with User
     user = db.relationship("User", back_populates="created_locations") 
@@ -173,6 +173,14 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
 
         return [l.to_dict() for l in results]    
 
+    def fill_in_blanks(self):
+        if self.job_title == "" or self.language_learn == "" or self.language_skilled == "" or self.how_long_experienced == "" or self.how_long_learning == "" :
+            self.job_title = 'N/A'
+            self.language_learn = 'N/A'
+            self.language_skilled = 'N/A'
+            self.how_long_experienced = 'N/A'
+            self.how_long_learning = 'N/A'
+
     def get_location_latitude(self):
         point = to_shape(self.geom)
         return point.y
@@ -182,7 +190,6 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
         return point.x  
 
     def to_dict(self):
-        # user_name = User.display_name
 
         return {
             'id': self.id,
@@ -286,6 +293,10 @@ class AddCafe(db.Model):
             ).limit(100).all() 
 
         return [l.to_dict() for l in results]    
+    
+    # def cafe_name(self):
+    #     self.cafe_name = self.address_cafe
+    #     return self.cafe_name
 
     def get_location_latitude(self):
         point = to_shape(self.geom)

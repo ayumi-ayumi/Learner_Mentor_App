@@ -2,6 +2,7 @@ from audioop import add
 from email.headerregistry import Address
 import os
 import sys
+from unicodedata import name
 from flask import Flask, request, abort, jsonify, render_template, url_for, flash, redirect
 from flask_cors import CORS
 import traceback
@@ -25,7 +26,7 @@ def create_app(test_config=None):
     login_manager.login_message_category = 'info'
 
     """ uncomment at the first time running the app. Then comment back so you do not erase db content over and over """
-    # db_drop_and_create_all()
+    # db_drop_and_create_all() 
 
     @app.route('/', methods=['GET'])
     @login_required
@@ -67,7 +68,6 @@ def create_app(test_config=None):
             how_long_learning = form.how_long_learning.data
             online_inperson = list(form.online_inperson.data)
             
-
             location = SampleLocation(
                 # description=description,
                 geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude),
@@ -84,8 +84,9 @@ def create_app(test_config=None):
             )   
             location.user_id = current_user.id
             location.user_name = current_user.display_name
+            # location.fill_in_blanks()
             location.insert()
-
+            
             flash(f'New location created!' , 'success')
             return redirect(url_for('home'))
     
@@ -253,10 +254,10 @@ def create_app(test_config=None):
                 geom=SampleLocation.point_representation(latitude=latitude, longitude=longitude),
                 cafe_datail=cafe_datail,
                 user_name=user_name,
-                # cafe_name=cafe_name
             )   
             location.user_id = current_user.id
             location.user_name = current_user.display_name
+            # location.cafe_name()
             location.insert()
 
             flash(f'New cafe added!' , 'success')

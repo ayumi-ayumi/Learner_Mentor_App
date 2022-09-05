@@ -17,15 +17,16 @@ class MultiCheckboxField(SelectMultipleField):
     """
     widget = widgets.ListWidget(prefix_label=False)
     option_widget = widgets.CheckboxInput()
+    
 
 class NewLocationForm(FlaskForm):
     # 左辺はhtmlのid名になる
     # username = StringField("Your name?", validators=[DataRequired(), Length(max=10)])
     # description = StringField('Location description', validators=[DataRequired(), Length(min=1, max=80)])
     # lookup_address = StringField('Search address')
-    learner_or_mentor = RadioField('Are you a learner or mentor?', choices = ['Learner', 'Mentor'])
+    learner_or_mentor = RadioField('Are you a learner or mentor?', choices = ['Learner', 'Mentor'], validators=[DataRequired()])
 
-    address = StringField('Your address?',validators=[DataRequired()])
+    address = StringField('Your address?')
     coord_latitude = HiddenField('Latitude',validators=[DataRequired()])
     coord_longitude = HiddenField('Longitude', validators=[DataRequired()])       
 
@@ -40,13 +41,13 @@ class NewLocationForm(FlaskForm):
     options_language_speak.sort()
     language_speak = MultiCheckboxField('Which language do you speak?',choices = options_language_speak)
 
-    how_long_experienced = RadioField('How long are you experienced?', choices = ['Less than 1 year','1-2 years', '3-5 years', 'More than 5 years', 'Over 10 years'])
+    how_long_experienced = RadioField('How long are you experienced?', choices = ['Less than 1 year','1-2 years', '3-5 years', 'More than 5 years', 'Over 10 years'], validate_choice=False)
 
-    how_long_learning = RadioField('How long have you learned?', choices = ['Never','Less than 3 monts', '3-6 months', '6-12 months', 'Over 1 year'])
+    how_long_learning = RadioField('How long have you learned?', choices = ['Never','Less than 3 monts', '3-6 months', '6-12 months', 'Over 1 year'], validate_choice=False)
 
     online_inperson = MultiCheckboxField('Want to meet on online or in person?',choices = ['Online', 'In person'])
     
-    submit = SubmitField('Create Location')
+    submit = SubmitField('Add Me')
 
 # Form for user registration page
 class RegistrationForm(FlaskForm):
@@ -120,4 +121,4 @@ class AddCafeForm(FlaskForm):
     # cafe_datail.sort()
     cafe_datail = MultiCheckboxField(choices = cafe_datail_options)
 
-    submit = SubmitField('Create Location')
+    submit = SubmitField('Add this Cafe')

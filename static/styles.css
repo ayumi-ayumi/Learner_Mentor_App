@@ -3,8 +3,9 @@ font-family: 'Roboto Condensed', sans-serif;
 /* background-image: url(./cool.png);
 background-size: cover;
 background-repeat: no-repeat; */
-background: rgb(117,213,138);
+/* background: rgb(117,213,138); */
 background: linear-gradient(38deg, rgba(117,213,138,1) 0%, rgba(250,241,165,0.8673844537815126) 100%);
+background-attachment: fixed;
 }
 /* The popup bubble styling. */
 .popup-bubble {
@@ -93,6 +94,9 @@ background: linear-gradient(38deg, rgba(117,213,138,1) 0%, rgba(250,241,165,0.86
   text-align: center;
 }
 
+.form-group .address {
+  display: none;
+}
 .form-group .job_title {
   display: none;
 }
@@ -116,6 +120,10 @@ background: linear-gradient(38deg, rgba(117,213,138,1) 0%, rgba(250,241,165,0.86
   max-width: 400px;
   margin: 0 auto 20px;
 }
+#preview {
+  display: none;
+}
+
 
 .form-group.job_title, .form-group.address {
   /* margin: 10px 100px; */
@@ -130,18 +138,12 @@ background: linear-gradient(38deg, rgba(117,213,138,1) 0%, rgba(250,241,165,0.86
 }
 
 .form-control.job_title, .form-control.address {
-  width: 80%;
+  width: 65%;
   margin: 0 auto;
   background-color: #ffffff9c;
   display: inline;
 }
 
-
-.form-language_speak {
-  width: 90%;
-  margin: 0 auto;
-  list-style-type: none;
-}
 
 .form-language_speak li{
   display: inline-block;
@@ -152,9 +154,10 @@ background: linear-gradient(38deg, rgba(117,213,138,1) 0%, rgba(250,241,165,0.86
   border: 1px solid grey;
 }
 
-.form-language_learn, .form-language_skilled {
+.form-language_learn, .form-language_skilled, .form-language_speak{
   width: 90%;
   margin: 0 auto;
+  padding: 0;
   list-style-type: none;
 }
 

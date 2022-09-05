@@ -61,6 +61,11 @@
                     {{ form.address(class="form-control address form-control-lg") }}
                 {% endif %}
             </div>
+
+            <!-- Map -->
+            <div id="preview" style="width: 100%; height: 400px">
+                <div id="map" style="height: 100%;"></div>
+            </div>
             
             <!-- language_learn form selectbox -->
             <div class="form-group language_learn">
@@ -158,9 +163,7 @@
                 {% endif %}
             </div>
         </fieldset>
-        <div id="preview" style="width: 100%; height: 400px">
-            <div id="map" style="height: 100%;"></div>
-        </div>
+        
         <div class="form-group">
             {{ form.submit(class="btn btn-outline-info") }}
         </div>

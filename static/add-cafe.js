@@ -10,17 +10,16 @@ function initAutocomplete() {
     // Create the search box and link it to the UI element.
     const input = document.getElementById("address_cafe");
     const searchBox = new google.maps.places.SearchBox(input);
-  
+    
     // Bias the SearchBox results towards current map's viewport.
     map.addListener("bounds_changed", () => {
       searchBox.setBounds(map.getBounds());
     });
-  
+    
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
     searchBox.addListener("places_changed", () => {
       const places = searchBox.getPlaces();
-  
       if (places.length == 0) {
         return;
       }
