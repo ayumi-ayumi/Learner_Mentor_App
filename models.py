@@ -258,7 +258,7 @@ class User(UserMixin, db.Model):
 
     def update(self):
         db.session.commit()  
-
+        
 class AddCafe(db.Model):
     __tablename__ = 'cafe_locations' 
 
