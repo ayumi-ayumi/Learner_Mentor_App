@@ -15,10 +15,21 @@ from sqlalchemy.sql.expression import cast
 from geoalchemy2.shape import from_shape
 import hashlib
 from dotenv import load_dotenv
+import urllib.parse as up
+import psycopg2
+
 
 db = SQLAlchemy()
 load_dotenv()
 print(os.environ['DATABASE_URL'])
+up.uses_netloc.append("postgres")
+url = up.urlparse(os.environ["DATABASE_URL"])
+conn = psycopg2.connect(database=url.path[1:],
+user=url.username,
+password=url.password,
+host=url.hostname,
+port=url.port
+)
 
 '''
 setup_db(app):
@@ -29,6 +40,7 @@ def setup_db(app):
 
     # https://stackoverflow.com/questions/62688256/sqlalchemy-exc-nosuchmoduleerror-cant-load-plugin-sqlalchemy-dialectspostgre
     database_path = database_path.replace('postgres://', 'postgresql://')
+    print(database_path)
 
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
