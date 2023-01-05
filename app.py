@@ -11,12 +11,14 @@ from forms import AddCafeForm, NewLocationForm, RegistrationForm, LoginForm
 from models import AddCafe, setup_db, SampleLocation, db_drop_and_create_all, User
 from sqlalchemy.exc import IntegrityError
 import hashlib
+from dotenv import load_dotenv
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
     setup_db(app)
     CORS(app)
+    load_dotenv()
 
     SECRET_KEY = os.urandom(32)
     app.config['SECRET_KEY'] = SECRET_KEY
@@ -29,7 +31,7 @@ def create_app(test_config=None):
     # db_drop_and_create_all() 
 
     @app.route('/', methods=['GET'])
-    @login_required
+    # @login_required
     def home():
         return render_template(
             'map.html', 

@@ -14,8 +14,11 @@ from geoalchemy2.types import Geography
 from sqlalchemy.sql.expression import cast
 from geoalchemy2.shape import from_shape
 import hashlib
+from dotenv import load_dotenv
 
 db = SQLAlchemy()
+load_dotenv()
+print(os.environ['DATABASE_URL'])
 
 '''
 setup_db(app):
