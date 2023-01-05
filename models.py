@@ -21,6 +21,7 @@ import psycopg2
 
 db = SQLAlchemy()
 load_dotenv()
+
 print(os.environ['DATABASE_URL'])
 up.uses_netloc.append("postgres")
 url = up.urlparse(os.environ["DATABASE_URL"])
@@ -30,6 +31,7 @@ password=url.password,
 host=url.hostname,
 port=url.port
 )
+print(url)
 
 '''
 setup_db(app):
