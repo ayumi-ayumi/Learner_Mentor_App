@@ -21,8 +21,8 @@ import psycopg2
 
 db = SQLAlchemy()
 load_dotenv()
+print("line24:" + os.getenv("DATABASE_URL"))
 
-print(os.environ['DATABASE_URL'])
 up.uses_netloc.append("postgres")
 url = up.urlparse(os.environ["DATABASE_URL"])
 conn = psycopg2.connect(database=url.path[1:],
@@ -31,8 +31,7 @@ password=url.password,
 host=url.hostname,
 port=url.port
 )
-print(url)
-
+print(conn)
 '''
 setup_db(app):
     binds a flask application and a SQLAlchemy service
@@ -151,7 +150,8 @@ class SampleLocation(db.Model): #first defined model class to store sample locat
     id = Column(Integer, primary_key=True) 
     #column in a table, primary key is an attribute that identifies the row of the respective table
     # description = Column(String(80)) #second column
-    geom = Column(Geometry(geometry_type='POINT', srid=SpatialConstants.SRID))  
+    geom = Column(String)  
+    # geom = Column(Geometry(geometry_type='POINT', srid=SpatialConstants.SRID))  
     address = Column(String)
     learner_or_mentor = Column(String)
     job_title = Column(String)
