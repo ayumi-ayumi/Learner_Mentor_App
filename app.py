@@ -6,7 +6,7 @@ from unicodedata import name
 from flask import Flask, request, abort, jsonify, render_template, url_for, flash, redirect
 from flask_cors import CORS
 import traceback
-from flask_login import LoginManager, login_required, login_user, logout_user, login_manager, current_user
+from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 from forms import AddCafeForm, NewLocationForm, RegistrationForm, LoginForm
 from models import AddCafe, setup_db, SampleLocation, db_drop_and_create_all, User
 from sqlalchemy.exc import IntegrityError
