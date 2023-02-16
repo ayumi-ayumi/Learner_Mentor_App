@@ -28,10 +28,10 @@ def create_app(test_config=None):
     login_manager.login_message_category = 'info'
 
     """ uncomment at the first time running the app. Then comment back so you do not erase db content over and over """
-    db_drop_and_create_all() 
+    # db_drop_and_create_all() 
 
     @app.route('/', methods=['GET'])
-    # @login_required
+    @login_required
     def home():
         return render_template(
             'map.html', 
