@@ -186,6 +186,7 @@ function refreshMarkers(mapCenter, zoomLevel) {
     "radius" : radiusToZoomLevel[zoomLevel]
   }
   var url = "/api/get_items_in_radius?" + dictToURI(params) 
+  console.log(url)
 
   loadJSON(url, function(response) {
     // Parse JSON string into object
@@ -199,7 +200,6 @@ function refreshMarkers(mapCenter, zoomLevel) {
     
     // place new markers in the map
     placeItemsInMap(response_JSON.results)
-      // console.log(markers)
     });
   }
   
@@ -490,8 +490,6 @@ function loadJSON(url, callback) {
         //TODO: what to do in case of failures?
   };
   xobj.send(null);  
-  console.log(123)
-  
 }
 
 function dictToURI(dict) {
