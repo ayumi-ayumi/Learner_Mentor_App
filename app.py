@@ -11,14 +11,14 @@ from forms import AddCafeForm, NewLocationForm, RegistrationForm, LoginForm
 from models import AddCafe, setup_db, SampleLocation, db_drop_and_create_all, User
 from sqlalchemy.exc import IntegrityError
 import hashlib
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
     setup_db(app)
     CORS(app)
-    load_dotenv()
+    # load_dotenv()
 
     SECRET_KEY = os.urandom(32)
     app.config['SECRET_KEY'] = SECRET_KEY
@@ -28,10 +28,10 @@ def create_app(test_config=None):
     login_manager.login_message_category = 'info'
 
     """ uncomment at the first time running the app. Then comment back so you do not erase db content over and over """
-    # db_drop_and_create_all() 
+    db_drop_and_create_all() 
 
     @app.route('/', methods=['GET'])
-    @login_required
+    # @login_required
     def home():
         return render_template(
             'map.html', 
@@ -49,7 +49,7 @@ def create_app(test_config=None):
         )            
 
     @app.route("/new-location", methods=['GET', 'POST'])
-    @login_required
+    # @login_required
     def new_location():
         form = NewLocationForm()
 
