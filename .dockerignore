@@ -1,8 +1,0 @@
-fly.toml
-.git/
-*.sqlite3
-.fly
-Dockerfile
-/Users/Ayumi/Desktop/Frauenloop/Flask/HerokuFlaskTemplate/heroku-flask-template-ayumi/.fly
-/Users/Ayumi/Desktop/Frauenloop/Flask/HerokuFlaskTemplate/heroku-flask-template-ayumi/Dockerfile
-/Users/Ayumi/Desktop/Frauenloop/Flask/HerokuFlaskTemplate/heroku-flask-template-ayumi/fly.toml

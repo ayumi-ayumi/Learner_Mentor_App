@@ -3,12 +3,8 @@ __pycache__
 .vscode
 .env
 note.txt
-.fly
 Dockerfile
 fly.toml
-.fly
 
-/Users/Ayumi/Desktop/Frauenloop/Flask/HerokuFlaskTemplate/heroku-flask-template-ayumi/.fly
-/Users/Ayumi/Desktop/Frauenloop/Flask/HerokuFlaskTemplate/heroku-flask-template-ayumi/Dockerfile
-/Users/Ayumi/Desktop/Frauenloop/Flask/HerokuFlaskTemplate/heroku-flask-template-ayumi/fly.toml
+
 
