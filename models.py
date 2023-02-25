@@ -18,11 +18,12 @@ import hashlib
 db = SQLAlchemy()
 
 '''
-setup_db(app):
+# setup_db(app):
     binds a flask application and a SQLAlchemy service
 '''
 def setup_db(app):
     database_path = os.getenv('DATABASE_URL', 'DATABASE_URL_WAS_NOT_SET?!')
+    print(database_path)
 
     # https://stackoverflow.com/questions/62688256/sqlalchemy-exc-nosuchmoduleerror-cant-load-plugin-sqlalchemy-dialectspostgre
     database_path = database_path.replace('postgres://', 'postgresql://')
