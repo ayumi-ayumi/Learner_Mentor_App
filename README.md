@@ -1,4 +1,9 @@
-# Heroku / Flask / PostGres app template
+# Learner Mentor App
+
+Second project in Frauenloop, which is a dynaminc web app using Python, Flask, and PostgreSQL.
+The concept is for someone who studies programming and who works using programming. The app can connect those people, who wants to get help and who wants to give advide, also, you can connect with someone who also studies or works.
+One more function in this app is you can find and add a cafe you recommend to study or work. You can easily find a nice cafe nearby.
+
 
 ## What is this template for?
 
