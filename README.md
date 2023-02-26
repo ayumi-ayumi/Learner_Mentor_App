@@ -5,7 +5,7 @@ The concept is for someone who studies programming and who works using programmi
 One more function in this app is you can find and add a cafe you recommend to study or work. You can easily find a nice cafe nearby.
 
 
-## What is this template for?
+<!-- ## What is this template for?
 
 As part of our course, we want to build a location-based web application. We know we will need a database to store some data, and that we want special support for geospatial data (latitude and longitude storage, searches based on distance, etc). Eventually we want to deploy our app somewhere!
 
@@ -19,13 +19,7 @@ Also, through this guide:
 - The template includes sample code to show a Google Map and some markers in it
 - The template also includes a sample model with some prestored locations, just to test out the map functionality and make sure PostGis extension works too.
 
-The idea is you use this to get a first working version of these basic functionalities, and then start changing things to build your own app.
-
-## Disclaimer
-
-The instructions and the commands below were run on an Ubuntu WSL inside Windows 10/11. Then I added the commands for Windows (ran those on Windows 11 Home)
-If you are a Windows user, I totally recommend going the WSL route, altough it can be a little messy to setup.
-If you are running on a Mac or some different setup, some stuff might be slightly different!
+The idea is you use this to get a first working version of these basic functionalities, and then start changing things to build your own app. -->
 
 ## Prerequisites
 
