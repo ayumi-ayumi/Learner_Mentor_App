@@ -31,7 +31,7 @@ def create_app(test_config=None):
     # db_drop_and_create_all() 
 
     @app.route('/', methods=['GET'])
-    # @login_required
+    @login_required
     def home():
         return render_template(
             'map.html', 

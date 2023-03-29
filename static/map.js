@@ -6,18 +6,9 @@ let geocoder;
 let queryCenter; 
 let queryZoom;
 
-//When the user clicks on a marker, it will become
-// the selected one:
+//When the user clicks on a marker, it will becom the selected icon:
 var selectedMarker = null;
 let selectedMarkerPopup, Popup;
-
-// var DEFAULT_ICON = {
-//   url: "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png"
-// }
-
-// var SELECTED_ICON = {
-//   url: "http://maps.google.com/mapfiles/kml/paddle/grn-stars.png"
-// }
 
 var Cafe_ICON = {
   url: "http://maps.google.com/mapfiles/kml/shapes/coffee.png"
@@ -39,13 +30,21 @@ var Learner_SELECTED_ICON = {
   url: "http://maps.google.com/mapfiles/kml/paddle/grn-stars.png"
 }
 
+var Myself_ICON = {
+  url: "http://maps.google.com/mapfiles/kml/paddle/blu-blank.png"
+}
+
+var Myself_SELECTED_ICON = {
+  url: "http://maps.google.com/mapfiles/kml/paddle/blu-stars.png"
+}
+
 function initMap() {
   console.log('InitMap')
   
   geocoder = new google.maps.Geocoder();
 
   map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 52.5200, lng: 13.4050 }, //We start at the center of Berlin
+    center: { lat: 52.5200, lng: 13.4050 }, 
     zoom: 11,
     minZoom: 6,
     maxZoom: 19,
@@ -68,14 +67,12 @@ function initMap() {
     // to call the backend again for new points
     var distanceChange = (queryCenter == null) ? 0 : google.maps.geometry.spherical.computeDistanceBetween (queryCenter, newCenter);
 
-    if (queryCenter == null || queryZoom == null || distanceChange > 100 || newZoom < queryZoom) { //if we have not queried for markers yet, query
+    if (queryCenter == null || queryZoom == null || distanceChange > 100 || newZoom < queryZoom) {
       refreshMarkers(newCenter, newZoom);
     }  
   });
 
-    /**
-   * A customized popup on the map.
-   */
+    // A customized popup on the map.
     Popup = class Popup extends google.maps.OverlayView {
       position;
       containerDiv;
@@ -165,7 +162,7 @@ var radiusToZoomLevel = [
   120,  // zoom: 19
 ];
 
-// ページをリフレッシュした時
+// When refreshing the page
 function refreshMarkers(mapCenter, zoomLevel) {
   console.log("refreshing markers")
   //Update query cener and zoom so we know in referenec to what
@@ -191,7 +188,6 @@ function refreshMarkers(mapCenter, zoomLevel) {
   loadJSON(url, function(response) {
     // Parse JSON string into object
     var response_JSON = JSON.parse(response);
-    console.log(response_JSON);
     if (!response_JSON.success) {
       // something failed in the backed serching for the items
       console.log("/api/get_items_in_radius call FAILED!")
@@ -226,15 +222,13 @@ function refreshMarkers(mapCenter, zoomLevel) {
       //we can get all the item data to fill the highlighted profile box under
       // the map 
       marker.profile = item;
-      console.log(item)
+      // console.log(item)
       
       google.maps.event.addListener(marker, 'click', function(evt) {
         markerClick(this);
       });
       return marker;
     });
-    
-    console.log(markers.length);
   }
   
 // show all markers
@@ -333,12 +327,14 @@ function searchAddressSubmit() {
   return false;
 }
 
+
+
 function markerClick(marker) {
 
   console.log('Marker clicked');
-  console.log(marker.profile);
+  console.log(336, marker.profile);
   
-  // de-select the previously active marker, if present, マーカーがクリックされたら星マークアイコンになるようにする
+  // de-select the previously active marker, if present, When clicked the icon, the icon will be changed to the one with a star
   // selecetedMarker=nullなのでfalse
   let learner_or_mentor = marker.profile.learner_or_mentor
   if (learner_or_mentor === "Learner" || learner_or_mentor === "Mentor" ) {
@@ -357,20 +353,25 @@ function markerClick(marker) {
     if (learner_or_mentor==='Mentor') {
       marker.setIcon(Mentor_SELECTED_ICON)
     }
-     
-    // if (selectedMarker) {
-      // console.log(selectedMarker)
-      // selectedMarker.setIcon(DEFAULT_ICON);
-    // }
-    // console.log(selectedMarker)
-    // marker.setIcon(SELECTED_ICON);
+
+    let myself_name_database = document.getElementsByClassName("nav-link text-reset")[0].innerHTML
+    let myself_name = marker.profile.user_name 
+    console.log(myself_name)
+
+    console.log(myself_name_database)
+    if (myself_name_database.includes('Ayumi')) {
+      marker.setIcon(Myself_SELECTED_ICON)
+    }
+
+
+   
   
     // remove the popup for the previously selected marker
     if (selectedMarkerPopup) {
       selectedMarkerPopup.setMap(null);
     }
     
-    // update selected marker reference。クリックしたアイコンの前のアイコンにmakerを設定
+    // update selected marker reference. Set a marker on the icon that is clicked right before
     selectedMarker = marker;
   
     // Show popup for the clicked marker
