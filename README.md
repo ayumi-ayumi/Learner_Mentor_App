@@ -21,7 +21,7 @@ Also, through this guide:
 
 The idea is you use this to get a first working version of these basic functionalities, and then start changing things to build your own app. -->
 
-## Prerequisites
+<!-- ## Prerequisites
 
 - A GitHub account and a [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) so you can commit stuff from the command line
 - Git installed in your machine so you can execute git commands
@@ -62,7 +62,7 @@ You need to figure out [where is your Python executable](https://mothergeo-py.re
 ```
 virtualenv --python C:\Users\mduha\AppData\Local\Programs\Python\Python39\python.exe venv
 .\venv\Scripts\activate
-```
+``` -->
 
 ## Installing Dependencies
 
