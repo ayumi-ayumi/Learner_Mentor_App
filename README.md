@@ -36,17 +36,14 @@ The idea is you use this to get a first working version of these basic functiona
 ターミナル上でherokuのアドオン確認
 ```
 heroku addons
-```
+``` -->
 
 ## Initializing the Project
 
-Start by creating a new directory for your new app. You can do it by running these commands:
-(I will use 'web-201-heroku-flask-template' as my app name)
-
 **Mac / Linux / Windows**
 ```
-mkdir web-201-heroku-flask-template
-cd web-201-heroku-flask-template
+mkdir app-name
+cd app-name
 ```
 
 Create a Python virtual environment:
@@ -57,17 +54,7 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-**Windows**
-You need to figure out [where is your Python executable](https://mothergeo-py.readthedocs.io/en/latest/development/how-to/venv-win.html#where-is-python) first, that for me is (you will at least have to put your own username there instead of mduha): 
-```
-virtualenv --python C:\Users\mduha\AppData\Local\Programs\Python\Python39\python.exe venv
-.\venv\Scripts\activate
-``` -->
-
 ## Installing Dependencies
-
-We want to get a bunch of libraries to get us started:
-(execute these commands one by one in case some error / warning comes)
 
 **Mac / Linux / Windows**
 ```
@@ -81,13 +68,7 @@ pip3 install flask_cors
 pip3 install flask_wtf
 ```
 
-More info about installing Flask can be found on their installation guide: https://flask.palletsprojects.com/en/2.0.x/installation/
-
-We need a way to tell Heroku what are our app dependencies so they get also installed there.
-We will use a requirements.txt file for that:
-
-Once we got all the dependencies in our local, we put them into our requirements file:
-(we need to be on the root directory of our project so the file gets created there)
+Once get all the dependencies in local, put them into our requirements file:
 
 **Mac / Linux**
 ```
@@ -99,11 +80,7 @@ python3 -m pip freeze > requirements.txt
 pip freeze > requirements.txt
 ```
 
-Verify that requirements.txt is created.
-
-:eight_pointed_black_star: If later on you install more libraries on your local virtual env, remember to generate the requirements.txt file again and push that change so the next time you deploy to Heroku it gets installed there as well.
-
-## Writing the initial Application Code
+<!-- ## Writing the initial Application Code
 
 You can copy the code from this template into your project. Files and folders to copy:
 (Also at this point it might be easier to open your project folder from VSCode, and start creating and editing files from there)
@@ -143,7 +120,7 @@ git push -u origin main
 
 At this point, if you browse your Git repo via your browser, you will see something like this:
 
-![First version of your repo](/_readme_assets/Repo-first-version.png)
+![First version of your repo](/_readme_assets/Repo-first-version.png) -->
 
 ## Setting up the Heroku cli and creating a Heroku app with a Posgres DB
 
